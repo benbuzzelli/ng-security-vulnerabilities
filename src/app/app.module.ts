@@ -7,6 +7,13 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
 import { AboutComponent } from './about/about/about.component';
 
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+import { environment } from '../environments/environment';
+
 import { RouterModule, Routes } from '@angular/router';
 import { HistoryComponent } from './history/history.component';
 
@@ -26,7 +33,11 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
