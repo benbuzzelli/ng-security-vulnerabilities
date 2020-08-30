@@ -7,8 +7,17 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
 import { AboutComponent } from './about/about/about.component';
 
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+
+import { environment } from '../environments/environment';
+
 import { RouterModule, Routes } from '@angular/router';
 import { HistoryComponent } from './history/history.component';
+import { MlExamplesComponent } from './ml-examples/ml-examples.component';
+import { LegalNotesComponent } from './legal-notes/legal-notes.component';
 
 const appRoutes: Routes = [
   { path:  'dashboard',component:  DashboardComponent},
@@ -22,11 +31,17 @@ const appRoutes: Routes = [
     DashboardComponent,
     NavbarComponent,
     AboutComponent,
-    HistoryComponent
+    HistoryComponent,
+    MlExamplesComponent,
+    LegalNotesComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
