@@ -16,6 +16,8 @@ import { environment } from '../environments/environment';
 
 import { RouterModule, Routes } from '@angular/router';
 import { HistoryComponent } from './history/history.component';
+import { MlExamplesComponent } from './ml-examples/ml-examples.component';
+import { LegalNotesComponent } from './legal-notes/legal-notes.component';
 
 const appRoutes: Routes = [
   { path:  'dashboard',component:  DashboardComponent},
@@ -29,7 +31,9 @@ const appRoutes: Routes = [
     DashboardComponent,
     NavbarComponent,
     AboutComponent,
-    HistoryComponent
+    HistoryComponent,
+    MlExamplesComponent,
+    LegalNotesComponent
   ],
   imports: [
     BrowserModule,

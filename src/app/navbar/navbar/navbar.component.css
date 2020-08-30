@@ -9,6 +9,16 @@
     overflow: auto;
 }
 
+.navbar header{
+    font-size: 28px;
+    color: white;
+    line-height: 70px;
+    text-align: center;
+    background: #1b1b1b;
+    user-select: none;
+    font-family: 'Montserrat', sans-serif;
+}
+
 .navbar-btn {
     display: block;
     line-height: 65px;
