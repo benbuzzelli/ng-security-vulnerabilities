@@ -1,2 +1,5 @@
-<div>dashboard works!</div>
-<input #messageInput (keyup.enter)="addRepository(messageInput.value)">
+<div class = "box"> 
+    <input type="url" #message placeholder="https://github.com/"> 
+    <button class="btn btn1" (click)="addRepository(message.value)"> Add Link </button>
+</div>
+
