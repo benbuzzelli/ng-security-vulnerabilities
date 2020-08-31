@@ -19,6 +19,8 @@ import { HistoryComponent } from './history/history.component';
 import { MlExamplesComponent } from './ml-examples/ml-examples.component';
 import { LegalNotesComponent } from './legal-notes/legal-notes.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 const appRoutes: Routes = [
   { path:  'dashboard',component:  DashboardComponent},
   { path:  'about', component:  AboutComponent },
@@ -41,7 +43,8 @@ const appRoutes: Routes = [
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

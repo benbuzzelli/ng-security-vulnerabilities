@@ -1,6 +1,7 @@
-<div class = "box"> 
+<div class = "container">
+    <div class="card">
     <input type="url" #message placeholder="https://github.com/"> 
-    <button class="btn btn1" (click)="addRepository(message.value)"> Add Link </button>
+    <button (click)="addRepository(message.value)"> Run Test </button>
     <table class="table">
         <tr>
             <td data-title="commits">The number of commits used:</td>
@@ -15,6 +16,11 @@
             <td> Yes </td>
         </tr>
     </table> 
-
+    </div>
 </div>
-
+<!-- <div class = "container">
+    <div class="card">
+    <span>Enter Repository Json String</span>
+    <input type="url" #json (keyup.enter)="addMLData(json.value)"><br>
+    </div>
+</div> -->
