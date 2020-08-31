@@ -3,4 +3,8 @@
     left: 240px;
     height: 100%;
     overflow: auto;
+    top: 0px;
+    width: -webkit-calc(100% - 240px);
+    width:    -moz-calc(100% - 240px);
+    width:         calc(100% - 240px);
 }
