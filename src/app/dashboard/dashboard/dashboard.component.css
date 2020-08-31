@@ -67,9 +67,7 @@ input[type="url"]:focus{
   .btn1:hover::before{
     height: 180%;
   } */
-
-  }
-
+  
   table{
     position: relative;
     z-index: -1;
