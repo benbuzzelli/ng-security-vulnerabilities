@@ -2,6 +2,20 @@
     <div class="card">
     <input type="url" #message placeholder="https://github.com/"> 
     <button (click)="addRepository(message.value)"> Run Test </button>
+    <table class="table">
+        <tr>
+            <td data-title="commits">The number of commits used:</td>
+           <td> 20 </td>
+        </tr>
+        <tr>
+            <td data-title="severity"> The severity for this github is:</td>
+            <td> Low </td>
+        </tr> 
+        <tr>
+            <td data-title="vulnerability"> Is this guthub link vulnerabile:</td>
+            <td> Yes </td>
+        </tr>
+    </table> 
     </div>
 </div>
 <!-- <div class = "container">

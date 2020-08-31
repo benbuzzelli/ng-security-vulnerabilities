@@ -67,3 +67,21 @@ input[type="url"]:focus{
   .btn1:hover::before{
     height: 180%;
   } */
+
+  }
+
+  table{
+    position: relative;
+    z-index: -1;
+    transform: translate(-50%,-50%);
+    width: 60%;
+    border-radius: 25%;
+    text-align: center;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-spacing: 0;
+  }
+
+  .td{
+    padding: 10px 15px;
+  }
