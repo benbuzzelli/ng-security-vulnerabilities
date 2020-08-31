@@ -48,33 +48,26 @@ export class GitService {
       for (let i = 0; i < n; i++) {
           index = searchString.indexOf(pattern, index + 1)
       }
+      console.log(n + ": " + index)
       return index
   }
 
   private getPath(url) {
-    return url.substring(this.getIndexOfNthOccurence(url, '/', 3), this.getIndexOfNthOccurence(url, '/', 5))
-  }
-
-  private getOptions(jsonObj) {
-    let options = {
-      host: 'api.github.com',
-      path: '/repos' + this.getPath(jsonObj.url) + '/commits?until=' + jsonObj.publishedDate,
-      method: 'GET',
-      headers: {'user-agent': 'node.js'}
-    };
-
-    return options
+    let index = this.getIndexOfNthOccurence(url, '/', 5)
+    index = index == -1 ? url.length : index
+    return url.substring(this.getIndexOfNthOccurence(url, '/', 3), index)
   }
 
   private getUrl(jsonObj) {
-    return 'https://api.github.com/repos' + this.getPath(jsonObj.url) + '/commits?until=' + jsonObj.publishedDate
+    console.log(this.getPath(jsonObj.url))
+    return 'https://api.github.com/repos' + this.getPath(jsonObj.url) + '/commits?until=' + jsonObj.publishedDate + '&per_page=100'
   }
 
   private extractCommits(data: any) {
     let commits = []
     data.forEach(element => {
       // console.log(JSON.parse(JSON.stringify(element)))
-      let commit = new Commit(element.commit.author.date, element.commit.message, element.committer.type, element.committer.site_admin)
+      let commit = new Commit(element?.commit?.author?.date, element?.commit?.message, element?.committer?.type, element?.committer?.site_admin)
       commits.push(commit)
     });
     return commits
