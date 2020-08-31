@@ -1,5 +1,6 @@
 .route-container {
-    position: fixed;
+    position: absolute;
+    /* background: black; */
     left: 240px;
     height: 100%;
     overflow: auto;

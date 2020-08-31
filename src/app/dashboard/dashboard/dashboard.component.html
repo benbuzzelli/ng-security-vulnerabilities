@@ -1,9 +1,12 @@
-<!-- <div>dashboard works!</div>
-<input #messageInput (keyup.enter)="addRepository(messageInput.value)">
-<br>
-<span>Enter Repository Json String</span>
-<input #message (keyup.enter)="addMLData(message.value)"> -->
-<div class = "box"> 
+<div class = "container">
+    <div class="card">
     <input type="url" #message placeholder="https://github.com/"> 
-    <button class="btn btn1" (click)="addRepository(message.value)"> Add Link </button>
+    <button (click)="addRepository(message.value)"> Run Test </button>
+    </div>
 </div>
+<!-- <div class = "container">
+    <div class="card">
+    <span>Enter Repository Json String</span>
+    <input type="url" #json (keyup.enter)="addMLData(json.value)"><br>
+    </div>
+</div> -->
