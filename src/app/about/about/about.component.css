@@ -16,7 +16,7 @@
 
 .card{
     height: 280px;
-    max-width: 350px;
+    max-width: 30%;
     margin: 20px 20px 0px 20px;
     background: white;
     transition: 0.4s;
