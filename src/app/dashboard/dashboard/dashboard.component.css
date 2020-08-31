@@ -7,7 +7,7 @@
 
 }
 
-input[type="url"]{
+/* input[type="url"]{
     position: relative;
     width: 300px;
     height: 20px;
@@ -25,13 +25,13 @@ input[type="url"]{
 input[type="url"]:focus{
     border-color: dodgerBlue;
     box-shadow: 0 0 8px 0 dodgerBlue;
-}
+} */
 
 .btncontainer{
     margin-top: 240px;
 }
 
-.btn{
+/* .btn{
     border: 1px solid #3498db;
     background: none;
     padding: 5px 12px;
@@ -66,4 +66,4 @@ input[type="url"]:focus{
   }
   .btn1:hover::before{
     height: 180%;
-  }
+  } */

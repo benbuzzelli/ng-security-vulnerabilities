@@ -9,16 +9,6 @@
     overflow: auto;
 }
 
-.navbar header{
-    font-size: 28px;
-    color: white;
-    line-height: 70px;
-    text-align: center;
-    background: #1b1b1b;
-    user-select: none;
-    font-family: 'Montserrat', sans-serif;
-}
-
 .navbar-btn {
     display: block;
     line-height: 65px;
@@ -41,8 +31,8 @@
       to right, 
       #40ada8,
       #40ada8 5px,
-      #1e1e1e 5px,
-      #1e1e1e 100%
+      #242424 5px,
+      #242424 100%
     );
 }
 
@@ -54,12 +44,12 @@
       to right, 
       #20B2AA,
       #20B2AA 5px,
-      #1e1e1e 5px,
-      #1e1e1e 100%
+      #303030 5px,
+      #303030 100%
     );
 }
 
-.navbar span {
+.navbar h1 {
     font-size: 23px;
     margin-right: 16px;
     letter-spacing: 1px;

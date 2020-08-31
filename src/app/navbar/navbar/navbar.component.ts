@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized  } from  "@angular/router";
 import { filter } from 'rxjs/operators';
+import { NONE_TYPE } from '@angular/compiler';
 
 @Component({
   selector: 'app-navbar',
@@ -87,8 +88,7 @@ export class NavStyle {
     'width': '240',
     'color': '#dedede',
     'padding-left': '30px',
-    'border-bottom': '1px solid black',
-    'border-top': '1px solid rgba(255,255,255,.1)',
+    'border': 'none',
     'font-family': "'Open Sans', sans-serif",
     'transition': 'all .2s ease',
     'background': 'transparent',
@@ -101,12 +101,11 @@ export class NavStyle {
     'width': '240',
     'color': '#dedede',
     'padding-left': '30px',
-    'border-bottom': '1px solid black',
-    'border-top': '1px solid rgba(255,255,255,.1)',
+    'border': 'none',
     'font-family': "'Open Sans', sans-serif",
     'transition': 'all .2s ease',
     'background': 'transparent',
-    'background-image': 'linear-gradient(to right, #40ada8,#40ada8 5px,#1e1e1e 5px,#1e1e1e 100%)'
+    'background-image': 'linear-gradient(to right, #40ada8,#40ada8 5px,#242424 5px,#242424 100%)'
   }
 
   focus = {
@@ -116,13 +115,12 @@ export class NavStyle {
     'width': '240',
     'color': '#20B2AA',
     'padding-left': '30px',
-    'border-bottom': '1px solid black',
-    'border-top': '1px solid rgba(255,255,255,.1)',
+    'border': 'none',
     'font-family': "'Open Sans', sans-serif",
     'transition': 'all .2s ease',
     'background': 'transparent',
     'outline': 'none',
-    'background-image': 'linear-gradient(to right,#20B2AA,#20B2AA 5px,#1e1e1e 5px,#1e1e1e 100%)'
+    'background-image': 'linear-gradient(to right,#20B2AA,#20B2AA 5px,#303030 5px,#303030 100%)'
   }
 
   constructor() {}
