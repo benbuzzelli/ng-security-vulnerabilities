@@ -1,8 +1,8 @@
 <div class="navbar">
     <header>welcome</header>
-    <div class="navbar-btn" tabindex="1" (click)="router.navigate(['dashboard']);"><span>dashboard</span></div>
-    <div class="navbar-btn" tabindex="2" (click)="router.navigate(['history']);"><span>history</span></div>
-    <div class="navbar-btn" tabindex="3" (click)="router.navigate(['ml-examples']);"><span>ml examples</span></div>
-    <div class="navbar-btn" tabindex="4" (click)="router.navigate(['about']);"><span>about</span></div>
-    <div class="navbar-btn" tabindex="5" (click)="router.navigate(['legal-notes']);"><span>legal notes</span></div>
+    <div (mouseover)="hover('dashboardStyle')" (mouseleave)="default('dashboardStyle')" [ngStyle]="dashboardStyle" class="navbar-btn" tabindex="1" (click)="router.navigate(['dashboard']);"><span>dashboard</span></div>
+    <div (mouseover)="hover('historyStyle')" (mouseleave)="default('historyStyle')" [ngStyle]="historyStyle" class="navbar-btn" tabindex="2" (click)="router.navigate(['history']);"><span>history</span></div>
+    <div (mouseover)="hover('examplesStyle')" (mouseleave)="default('examplesStyle')" [ngStyle]="examplesStyle" class="navbar-btn" tabindex="3" (click)="router.navigate(['ml-examples']);"><span>ml examples</span></div>
+    <div (mouseover)="hover('aboutStyle')" (mouseleave)="default('aboutStyle')" [ngStyle]="aboutStyle" class="navbar-btn" tabindex="4" (click)="router.navigate(['about']);"><span>about</span></div>
+    <div (mouseover)="hover('legalStyle')" (mouseleave)="default('legalStyle')" [ngStyle]="legalStyle" class="navbar-btn" tabindex="5" (click)="router.navigate(['legal-notes']);"><span>legal notes</span></div>
 </div>

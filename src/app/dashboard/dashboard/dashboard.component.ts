@@ -24,5 +24,4 @@ export class DashboardComponent implements OnInit {
   addMLData(jsonString: String) {
     this.gitService.addMLData(jsonString)
   }
-
 }
