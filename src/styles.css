@@ -70,10 +70,13 @@ header {
 }
 
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    position: absolute;
+    left: 50%;
+    display: inline-block;
+    transform: translateX(-50%);
+    /* align-items: center;
+    justify-content: center; */
+    /* width: 100%; */
 }
 
 .center {
@@ -83,6 +86,8 @@ header {
 }
 
 .card {
+    padding: 5px;
+    max-height: 500px;
     background: #242424;
 }
 
@@ -94,7 +99,7 @@ button {
     padding: 5px 12px;
     font-size: 20px;
     cursor: pointer;
-    margin: 10px;
+    margin-left: 10px;
     transition: 0.5s;
     overflow: hidden;
     border-radius: 25px; 
