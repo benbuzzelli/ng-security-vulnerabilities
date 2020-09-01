@@ -1,12 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Montserrat:600|Open+Sans:600&display=swap');
+/* @import '@angular/material/prebuilt-themes/deeppurple-amber.css'; */
+@import './themes/bluegreen.scss';
+// html, body {  
+//     // background: #121212;  
+//     // color: #dedede; 
+//     // margin: 0;
+//     height: 100%;
+// }
 
-html, body {  
-    background: #121212;  
-    color: #dedede;  
-}
-
-h1, p {  
+h1 {  
     font-size: 23px;
     margin-right: 16px;
     letter-spacing: 1px;
@@ -61,7 +64,7 @@ input[type="url"]:focus{
 }
 
 header {
-    font-size: 28px;
+    font-size: 24px;
     color: white;
     line-height: 70px;
     text-align: center;
@@ -74,9 +77,6 @@ header {
     left: 50%;
     display: inline-block;
     transform: translateX(-50%);
-    /* align-items: center;
-    justify-content: center; */
-    /* width: 100%; */
 }
 
 .center {
@@ -91,7 +91,7 @@ header {
     background: #242424;
 }
 
-button {
+/* button {
     position: relative;
     background: none;
     border: 1px solid #20B2AA;
@@ -134,4 +134,4 @@ button:focus {
 button:active {
     background: white;
     z-index: 5;
-}
+} */

@@ -1,7 +1,7 @@
 <div class = "container">
     <div class="card">
     <input type="url" #message placeholder="https://github.com/"> 
-    <button (click)="addRepository(message.value)"> Run Test </button>
+    <button mat-stroked-button color="primary" (click)="addRepository(message.value)"> Run Test </button>
     <table class="table">
         <tr>
             <td data-title="commits">The number of commits used:</td>

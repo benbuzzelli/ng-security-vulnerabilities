@@ -1,4 +1,13 @@
-<app-navbar></app-navbar>
-<div class="route-container">
-    <router-outlet></router-outlet>
-</div>
+<span [ngClass]="theme">
+    <button mat-stroked-button color="primary" (click)="toggleTheme()" style="position: fixed; bottom: 10px; left: 20px; z-index: 10;" mat-button>{{ switchToText }}</button>
+    <mat-drawer-container class="main-container">
+        <mat-drawer style="width: 200px;" mode="side" opened>
+            <app-navbar></app-navbar>
+        </mat-drawer>
+        <mat-drawer-content>
+            <router-outlet></router-outlet>
+        </mat-drawer-content>
+    <!-- <div class="route-container"> -->
+    </mat-drawer-container>
+</span>
+<!-- </div> -->

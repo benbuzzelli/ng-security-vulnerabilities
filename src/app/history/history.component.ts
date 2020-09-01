@@ -4,7 +4,7 @@ import { Router } from  "@angular/router";
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
-  styleUrls: ['./history.component.css']
+  styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit {
 

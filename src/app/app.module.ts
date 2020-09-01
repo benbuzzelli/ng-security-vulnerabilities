@@ -12,12 +12,17 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
+import { MaterialModule } from './material/material.module';
+import { MatIconModule } from '@angular/material/icon';
+
 import { environment } from '../environments/environment';
 
 import { RouterModule, Routes } from '@angular/router';
 import { HistoryComponent } from './history/history.component';
 import { MlExamplesComponent } from './ml-examples/ml-examples.component';
 import { LegalNotesComponent } from './legal-notes/legal-notes.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -44,7 +49,10 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule,
+    MatIconModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

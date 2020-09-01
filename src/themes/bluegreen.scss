@@ -1,0 +1,87 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$main-app-primary: mat-palette($mat-cyan);
+$main-app-accent:  mat-palette($mat-deep-purple, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$main-app-warn:    mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as `color` or `typography`.
+$main-app-theme-dark: mat-dark-theme((
+  color: (
+    primary: $main-app-primary,
+    accent: $main-app-accent,
+    warn: $main-app-warn,
+  )
+));
+
+$main-app-theme-light: mat-light-theme((
+  color: (
+    primary: $main-app-primary,
+    accent: $main-app-accent,
+    warn: $main-app-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+.dark-theme {
+  @include angular-material-theme($main-app-theme-dark);
+}
+
+.light-theme {
+  @include angular-material-theme($main-app-theme-light);
+}
+
+.mat-button-toggle-group {
+  width: 100%;
+  // background-color: mat-color($main-app-primary);
+  // color: mat-color($main-app-primary, default-contrast);
+}
+
+.mat-expansion-panel {
+  width: 100%;
+}
+
+.header-1 {
+  min-height: 65px;
+}
+
+.title {
+  font-size: large;
+}
+
+.subtitle {
+  color: mat-color($main-app-primary);
+}
+
+.container-1 {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+}
+
+.panel-1 {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 200px;
+  max-width: 500px;
+  width: 30%;
+  margin: 20px;
+}
+
+img {
+  width: 100%;
+}

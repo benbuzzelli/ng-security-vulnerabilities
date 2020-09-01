@@ -1,4 +1,4 @@
-.navbar {
+/* .navbar {
     position: fixed;
     width: 240px;
     top: 0;
@@ -7,14 +7,16 @@
     background: #1e1e1e;
     transition: all .5s ease;
     overflow: auto;
-}
+} */
+@import '../../../themes/bluegreen.scss';
 
 .navbar-btn {
     display: block;
     line-height: 65px;
     height: 65px;
     width: 240;
-    color: #dedede;
+    background: mat-color($main-app-primary, default-contrast);
+    color: mat-color($main-app-primary, default-contrast);
     padding-left: 30px;
     border-bottom: 1px solid black;
     border-top: 1px solid rgba(255,255,255,.1);

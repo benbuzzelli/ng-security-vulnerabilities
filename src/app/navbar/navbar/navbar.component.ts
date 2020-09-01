@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized  } from  "@angular/router";
 import { filter } from 'rxjs/operators';
 import { NONE_TYPE } from '@angular/compiler';
@@ -6,9 +6,14 @@ import { NONE_TYPE } from '@angular/compiler';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild('dashboard') dashboard: ElementRef
+  @ViewChild('history') history: ElementRef
+  @ViewChild('ml') ml: ElementRef
+  @ViewChild('about') about: ElementRef
+  @ViewChild('legal') legal: ElementRef
 
   dashboardStyle = {}
   historyStyle = {}
@@ -18,30 +23,51 @@ export class NavbarComponent implements OnInit {
 
   navStyle = new NavStyle()
 
-  constructor(public router: Router) {
+  switchToText = null
+
+  elementRef: ElementRef
+
+  constructor(public router: Router, elementRef:ElementRef) {
     router.events.pipe(
       filter(event => event instanceof NavigationEnd)  
     ).subscribe((event: NavigationEnd) => {
-      console.log(event.url);
       this.initialiseAll()
       switch (event.url) {
         case '/dashboard':
           this.dashboardStyle = this.navStyle.focus
+          // this.dashboard.nativeElement.focus()
           break;
         case '/history':
           this.historyStyle = this.navStyle.focus
+          // this.history.nativeElement.focus()
           break;
         case '/ml-examples':
           this.examplesStyle = this.navStyle.focus
+          // this.ml.nativeElement.focus()
           break;
         case '/about':
           this.aboutStyle = this.navStyle.focus
+          // this.about.nativeElement.focus()
           break;
         case '/legal-notes':
           this.legalStyle = this.navStyle.focus
+          // this.legal.nativeElement.focus()
           break;
       }
     });
+
+    this.elementRef = elementRef.nativeElement
+
+    let theme = window.localStorage.getItem('theme')
+
+    if (theme == null) {
+      window.localStorage.setItem('theme', 'light-theme');
+      this.switchToText = 'Dark Mode'
+    } else if (theme == 'light-theme') {
+      this.switchToText = 'Dark Mode'
+    } else {
+      this.switchToText = 'Light Mode'
+    }
   }
 
   ngOnInit(): void {
@@ -49,6 +75,8 @@ export class NavbarComponent implements OnInit {
 
   ngAfterViewInit() {
     this.initialiseAll()
+    let el = this.elementRef.nativeElement
+    console.log(this.elementRef.nativeElement)
   }
 
   initialiseAll() {
@@ -77,6 +105,17 @@ export class NavbarComponent implements OnInit {
     this.legalStyle = this.navStyle.default
 
     this[element] = this.navStyle.focus
+  }
+
+  toggleTheme() {
+    let theme = window.localStorage.getItem('theme')
+    if (theme == 'light-theme') {
+      window.localStorage.setItem('theme', 'dark-theme');
+      this.switchToText = 'Light Mode'
+    } else {
+      window.localStorage.setItem('theme', 'light-theme');
+      this.switchToText = 'Dark Mode'
+    }
   }
 }
 
