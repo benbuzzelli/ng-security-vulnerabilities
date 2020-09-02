@@ -10,7 +10,6 @@ import { GitService } from "../../services/git.service"
 })
 export class DashboardComponent implements OnInit {
 
-  @ViewChild('severityTextDiv') severityTextDiv: ElementRef;
   @ViewChild('severityIconDiv') severityIconDiv: ElementRef;
 
   scalables = {
@@ -29,11 +28,11 @@ export class DashboardComponent implements OnInit {
       }
     },
     severityText: {
-      elementRefKey: 'severityTextDiv',
-      refKey: 'offsetHeight',
+      elementRefKey: 'severityIconDiv',
+      refKey: 'clientWidth',
       attributes: ['font-size'],
       unit: 'px',
-      scaleFactor: 1,
+      scaleFactor: .08,
       style: {
         'font-size': '64px',
         'position': 'relative',

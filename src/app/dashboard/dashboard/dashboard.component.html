@@ -28,12 +28,10 @@
             <mat-grid-tile style="border: solid;" [colspan]="8" [rowspan]="4">
                 <h1>{{ url.value }}</h1>
             </mat-grid-tile>
-            <mat-grid-tile style="z-index: 5;" [colspan]="4" [rowspan]="1">
-                <div #severityTextDiv [ngStyle]="scalables.severityText.style">Severity</div>
-            </mat-grid-tile>
-            <mat-grid-tile [colspan]="4" [rowspan]="5">
+            <mat-grid-tile [colspan]="4" [rowspan]="6">
                 <!-- <h2>Severity</h2> -->
                 <div #severityIconDiv class="image-icon-div">
+                    <span [ngStyle]="scalables.severityText.style">Severity: HIGH</span><br>
                     <mat-icon style="color: #76ff03;" [ngStyle]="scalables.severityIcon.style">verified</mat-icon>
                 </div>
             </mat-grid-tile>
