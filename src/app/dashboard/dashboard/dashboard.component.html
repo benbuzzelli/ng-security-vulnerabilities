@@ -1,6 +1,6 @@
 <div class = "container">
-    <div class="card">
-    <input type="url" #message placeholder="https://github.com/"> 
+    <!-- <div class="card"> -->
+    <!-- <input type="url" #message placeholder="https://github.com/"> 
     <button mat-stroked-button color="primary" (click)="addRepository(message.value)"> Run Test </button>
     <table class="table">
         <tr>
@@ -15,8 +15,22 @@
             <td data-title="vulnerability"> Is this guthub link vulnerabile:</td>
             <td> Yes </td>
         </tr>
-    </table> 
-    </div>
+    </table>  -->
+    <!-- </div> -->
+    <mat-expansion-panel hideToggle class="panel">
+        <mat-expansion-panel-header>
+            <div style="width: 100%;" class="center">
+                <input type="url" #url placeholder="https://github.com/">
+                <button mat-stroked-button color="primary" (click)="addRepository(url.value)"> Run Test </button>
+            </div>
+        </mat-expansion-panel-header>
+        <mat-grid-list cols="6" rowHeight="2:1">
+            <mat-grid-tile style="border: solid;" [colspan]="4" [rowspan]="2">{{ url.value }}</mat-grid-tile>
+            <mat-grid-tile style="border: solid;" [colspan]="2" [rowspan]="3">2</mat-grid-tile>
+            <mat-grid-tile style="border: solid;" [colspan]="2" [rowspan]="1">3</mat-grid-tile>
+            <mat-grid-tile style="border: solid;" [colspan]="2" [rowspan]="1">4</mat-grid-tile>
+        </mat-grid-list>
+    </mat-expansion-panel>
 </div>
 <!-- <div class = "container">
     <div class="card">

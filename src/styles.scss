@@ -41,22 +41,29 @@ h3 {
 
 input[type="url"]{
     position: relative;
-    width: 300px;
-    height: 20px;
+    width: 60%;
+    min-width: 175px;
+    max-width: 400px;
+    height: 15px;
     border: 2px solid #aaa;
-    margin: 8px 0;
+    margin-right: 10px;
     outline: none;
     padding: 8px;
     box-sizing: border;
-    transition: .3s;
+    transition: .2s;
     border-radius: 25px;
     top: 0;
     left: 0;
 }
 
 input[type="url"]:focus{
-    border-color: #20B2AA;
-    box-shadow: 0 0 8px 0 #20B2AA;
+    border-color: mat-color($main-app-primary);
+    box-shadow: 0 0 8px 0 mat-color($main-app-primary);
+}
+
+.panel {
+    min-width: 400px;
+    max-width: 800px;
 }
 
 .item {  
