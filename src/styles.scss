@@ -57,6 +57,7 @@ input[type="url"]{
 }
 
 input[type="url"]:focus{
+    z-index: 10;
     border-color: mat-color($main-app-primary);
     box-shadow: 0 0 8px 0 mat-color($main-app-primary);
 }
