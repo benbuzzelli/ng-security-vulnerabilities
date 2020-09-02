@@ -90,6 +90,10 @@
     transform: scale(0.9);
 }
 
+img {
+    width: 100%;
+}
+
 @media screen and (max-width: 978px) {
     .container{
         flex-wrap: wrap;

@@ -1,5 +1,10 @@
 <span [ngClass]="theme">
-    <button mat-stroked-button color="primary" (click)="toggleTheme()" style="position: fixed; bottom: 10px; left: 20px; z-index: 10;" mat-button>{{ switchToText }}</button>
+    <mat-toolbar>
+        <img class="image-icon" src="../../../assets/img/whale-small.png">
+        <span class="tool-item">Security Whale</span>
+        <span class="spacer"></span>
+        <button mat-stroked-button color="primary" (click)="toggleTheme()" mat-button>{{ switchToText }}</button>
+    </mat-toolbar>
     <mat-drawer-container class="main-container">
         <mat-drawer style="width: 200px;" mode="side" opened>
             <app-navbar></app-navbar>

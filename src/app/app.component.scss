@@ -16,3 +16,16 @@
     height: 100%;
     width: 100%;
 }
+
+.image-icon {
+    height: 32px;
+    image-rendering: crisp-edges;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.tool-item {
+    margin-left: 10px;
+}
