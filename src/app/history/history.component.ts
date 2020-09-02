@@ -10,16 +10,16 @@ export interface HistoryTable {
 }
 
 const HISTORY_DATA: HistoryTable[] = [
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 1.0079, vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 4.0026, vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 6.941, vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 9.0122, vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 10.811, vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 12.0107, vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 14.0067, vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 15.9994, vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 18.9984, vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 20.1797, vulnerable: 'Yes', severity: '100%' },
+  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
+  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
+  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
+  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
+  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
+  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
+  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
+  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
+  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
+  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
 ];
 
 @Component({
