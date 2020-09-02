@@ -24,11 +24,21 @@
                 <button mat-stroked-button color="primary" (click)="addRepository(url.value)"> Run Test </button>
             </div>
         </mat-expansion-panel-header>
-        <mat-grid-list cols="6" rowHeight="2:1">
-            <mat-grid-tile style="border: solid;" [colspan]="4" [rowspan]="2">{{ url.value }}</mat-grid-tile>
-            <mat-grid-tile style="border: solid;" [colspan]="2" [rowspan]="3">2</mat-grid-tile>
-            <mat-grid-tile style="border: solid;" [colspan]="2" [rowspan]="1">3</mat-grid-tile>
-            <mat-grid-tile style="border: solid;" [colspan]="2" [rowspan]="1">4</mat-grid-tile>
+        <mat-grid-list class="grid" cols="12" rowHeight="2:1">
+            <mat-grid-tile style="border: solid;" [colspan]="8" [rowspan]="4">
+                <h1>{{ url.value }}</h1>
+            </mat-grid-tile>
+            <mat-grid-tile style="z-index: 5;" [colspan]="4" [rowspan]="1">
+                <div #severityTextDiv [ngStyle]="scalables.severityText.style">Severity</div>
+            </mat-grid-tile>
+            <mat-grid-tile [colspan]="4" [rowspan]="5">
+                <!-- <h2>Severity</h2> -->
+                <div #severityIconDiv class="image-icon-div">
+                    <mat-icon style="color: #76ff03;" [ngStyle]="scalables.severityIcon.style">verified</mat-icon>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile style="border: solid;" [colspan]="4" [rowspan]="2">3</mat-grid-tile>
+            <mat-grid-tile style="border: solid;" [colspan]="4" [rowspan]="2">4</mat-grid-tile>
         </mat-grid-list>
     </mat-expansion-panel>
 </div>

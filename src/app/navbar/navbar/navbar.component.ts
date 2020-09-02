@@ -75,8 +75,6 @@ export class NavbarComponent implements OnInit {
 
   ngAfterViewInit() {
     this.initialiseAll()
-    let el = this.elementRef.nativeElement
-    console.log(this.elementRef.nativeElement)
   }
 
   initialiseAll() {

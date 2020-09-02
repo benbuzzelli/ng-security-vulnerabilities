@@ -70,6 +70,27 @@ input[type="url"]:focus{
     background: #20B2AA;  
 }
 
+.image-icon-div {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.image-icon {
+    height: 32px;
+    image-rendering: crisp-edges;
+}
+
+.text-h1 {
+    font-size: 100%;
+}
+
+.grid {
+    width: 40vw;
+    min-width: 100%;
+    max-width: 100%;
+}
+
 header {
     font-size: 24px;
     color: white;
@@ -96,6 +117,10 @@ header {
     padding: 5px;
     max-height: 500px;
     background: #242424;
+}
+
+.mat-icon {
+    vertical-align: middle;
 }
 
 /* button {
