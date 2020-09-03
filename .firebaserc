@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "security-whale"
+  },
+  "targets": {
+    "security-whale": {
+      "hosting": {
+        "ng-security-vulnerabilities": [
+          "security-whale"
+        ]
+      }
+    }
   }
 }

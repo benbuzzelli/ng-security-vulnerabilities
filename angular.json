@@ -53,8 +53,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "140kb",
+                  "maximumError": "150kb"
                 }
               ]
             }
@@ -118,6 +118,10 @@
               "devServerTarget": "ng-security-vulnerabilities:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
