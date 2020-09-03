@@ -1,4 +1,5 @@
 @import '../../app.component.scss';
+@import '../../../themes/bluegreen.scss';
 .box{
     position: relative;
     width: 70%;
@@ -11,18 +12,92 @@
     margin-top: 240px;
 }
   
-  table{
-    position: relative;
-    // z-index: -1;
-    // transform: translate(-50%,-50%);
-    width: 60%;
-    // border-radius: 25%;
-    text-align: center;
-    border-collapse: collapse;
-    overflow: hidden;
-    border-spacing: 0;
-  }
+table{
+  position: relative;
+  // z-index: -1;
+  // transform: translate(-50%,-50%);
+  width: 60%;
+  // border-radius: 25%;
+  text-align: center;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-spacing: 0;
+}
 
-  .td{
-    padding: 10px 15px;
-  }
+.td{
+  padding: 10px 15px;
+}
+
+.grid {
+  width: 40vw;
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.grid-tl {
+  border-top-left-radius: 8px;
+}
+
+.grid-tr {
+  border-top-right-radius: 8px;
+}
+
+.grid-bl {
+  border-bottom-left-radius: 8px;
+}
+
+.grid-br {
+  border-bottom-right-radius: 8px;
+}
+
+.grid-text-header {
+  position: relative;
+  top: 10%;
+  font-size: 18px;
+}
+
+.grid-header {
+  font-size: 20px;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+}
+
+:host-context(.dark-theme) .grid-text-header {
+  color: var(--title-dark-theme);
+}
+
+:host-context(.light-theme) .grid-text-header {
+  color: var(--title-light-theme);
+}
+
+:host-context(.dark-theme) .grid-tile {
+  border: solid;
+  border-width: 1px;
+  border-color: var(--gray-5);
+}
+
+:host-context(.light-theme) .grid-tile {
+  border: solid;
+  border-width: 1px;
+  border-color: var(--gray-2);
+}
+
+:host-context(.light-theme) .grid-description {
+  color: var(--subtitle-light-theme);
+  font-size: 15px;
+}
+
+:host-context(.dark-theme) .grid-description {
+  color: var(--subtitle-dark-theme);
+  font-size: 15px;
+}
+
+:host-context(.light-theme) .grid-text {
+  color: var(--text-light-theme);
+  // font-weight: bold;
+}
+
+:host-context(.dark-theme) .grid-text {
+  color: var(--text-dark-theme);
+  // font-weight: bold;
+}

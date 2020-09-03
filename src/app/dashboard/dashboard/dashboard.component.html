@@ -25,18 +25,25 @@
             </div>
         </mat-expansion-panel-header>
         <mat-grid-list class="grid" cols="12" rowHeight="2:1">
-            <mat-grid-tile style="border: solid;" [colspan]="8" [rowspan]="4">
-                <h1>{{ url.value }}</h1>
+            <mat-grid-tile class="grid-tile grid-tl" [colspan]="8" [rowspan]="4">
+                <div style="width: 100%; padding: 10px; padding-top: 20px;">
+                    <span class="grid-header">Test Complete</span><br>
+                    <p><span class="grid-description">Ran test for:</span>&nbsp;<span class="grid-text">https://github.com/benbuzzelli/ng-security-vulnerabilities</span></p>
+                </div>
             </mat-grid-tile>
-            <mat-grid-tile [colspan]="4" [rowspan]="6">
+            <mat-grid-tile class="grid-tile grid-tr grid-br" [colspan]="4" [rowspan]="6">
                 <!-- <h2>Severity</h2> -->
                 <div #severityIconDiv class="image-icon-div">
-                    <span [ngStyle]="scalables.severityText.style">Severity: HIGH</span><br>
+                    <span class="grid-text-header">NOT VULNERABLE</span><br>
                     <mat-icon style="color: #76ff03;" [ngStyle]="scalables.severityIcon.style">verified</mat-icon>
                 </div>
             </mat-grid-tile>
-            <mat-grid-tile style="border: solid;" [colspan]="4" [rowspan]="2">3</mat-grid-tile>
-            <mat-grid-tile style="border: solid;" [colspan]="4" [rowspan]="2">4</mat-grid-tile>
+            <mat-grid-tile class="grid-tile grid-bl" [colspan]="4" [rowspan]="2">
+                <span class="grid-description">Execution Time:</span><span class="grid-text">203 ms</span>
+            </mat-grid-tile>
+            <mat-grid-tile class="grid-tile" [colspan]="4" [rowspan]="2">
+                <span class="grid-description">Commits tested:</span><span class="grid-text">85</span>
+            </mat-grid-tile>
         </mat-grid-list>
     </mat-expansion-panel>
 </div>

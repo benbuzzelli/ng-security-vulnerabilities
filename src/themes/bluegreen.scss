@@ -58,14 +58,6 @@ $main-app-theme-light: mat-light-theme((
   min-height: 65px;
 }
 
-.title {
-  font-size: large;
-}
-
-.subtitle {
-  color: mat-color($main-app-primary);
-}
-
 .container-1 {
   position: relative;
   left: 50%;
@@ -79,5 +71,7 @@ $main-app-theme-light: mat-light-theme((
   min-width: 200px;
   max-width: 500px;
   width: 30%;
-  margin: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
