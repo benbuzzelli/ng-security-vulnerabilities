@@ -1,5 +1,5 @@
 @import '../../app.component.scss';
-@import '../../../themes/bluegreen.scss';
+
 .box{
     position: relative;
     width: 70%;
@@ -32,22 +32,42 @@ table{
   width: 40vw;
   min-width: 100%;
   max-width: 100%;
+  border-radius: 8px;
+  // border: solid;
+  // border-width: 1px;
+  // border-color: black;
 }
 
 .grid-tl {
   border-top-left-radius: 8px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: solid;
 }
 
 .grid-tr {
   border-top-right-radius: 8px;
+  border-top: none;
+  border-right: none;
+  border-left: solid;
+  border-bottom: none;
 }
 
 .grid-bl {
   border-bottom-left-radius: 8px;
+  border-top: none;
+  border-right: solid;
+  border-left: none;
+  border-bottom: none;
 }
 
 .grid-br {
   border-bottom-right-radius: 8px;
+  border-bottom: none;
+  border-right: none;
+  border-left: solid;
+  border-top: none;
 }
 
 .grid-text-header {
@@ -62,6 +82,12 @@ table{
   font-weight: bold;
 }
 
+.panel {
+  width: 40%;
+  min-width: 650px;
+  max-width: 800px;
+}
+
 :host-context(.dark-theme) .grid-text-header {
   color: var(--title-dark-theme);
 }
@@ -71,13 +97,11 @@ table{
 }
 
 :host-context(.dark-theme) .grid-tile {
-  border: solid;
   border-width: 1px;
   border-color: var(--gray-5);
 }
 
 :host-context(.light-theme) .grid-tile {
-  border: solid;
   border-width: 1px;
   border-color: var(--gray-2);
 }
