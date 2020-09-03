@@ -26,18 +26,6 @@ export class DashboardComponent implements OnInit {
         'position': 'relative',
         'top': '10%'
       }
-    },
-    severityText: {
-      elementRefKey: 'severityIconDiv',
-      refKey: 'clientWidth',
-      attributes: ['font-size'],
-      unit: 'px',
-      scaleFactor: .08,
-      style: {
-        'font-size': '64px',
-        'position': 'relative',
-        'top': '10%'
-      }
     }
   }
 
@@ -81,11 +69,4 @@ export class DashboardComponent implements OnInit {
       scalable.style[attribute] = (scalar * scalable.scaleFactor).toString() + scalable.unit
     });
   }
-}
-
-export class IconStyles {
-  icon1: {
-
-  }
-  constructor() {}
 }

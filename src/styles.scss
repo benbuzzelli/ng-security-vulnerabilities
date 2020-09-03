@@ -63,7 +63,7 @@ input[type="url"]:focus{
 }
 
 .panel {
-    min-width: 400px;
+    min-width: 650px;
     max-width: 800px;
 }
 
@@ -80,16 +80,6 @@ input[type="url"]:focus{
 .image-icon {
     height: 32px;
     image-rendering: crisp-edges;
-}
-
-.text-h1 {
-    font-size: 100%;
-}
-
-.grid {
-    width: 40vw;
-    min-width: 100%;
-    max-width: 100%;
 }
 
 header {
@@ -168,3 +158,36 @@ button:active {
     background: white;
     z-index: 5;
 } */
+
+:root {
+    --gray-1: #F5F5F5;
+    --gray-2: #EEEEEE;
+    --gray-3: #E0E0E0;
+    --gray-4: #757575;
+    --gray-5: #616161;
+    --gray-6: #424242;
+
+    --text-light-theme: #424242;
+    --text-dark-theme: #F5F5F5;
+    --title-light-theme: #616161;
+    --title-dark-theme: #EEEEEE;
+
+    --subtitle-light-theme: #0097A7;
+    --subtitle-dark-theme: #4DD0E1;
+
+    --primary: #00BCD4;
+    --primary-1-dark: #B2EBF2;
+    --primary-1-light: #00838F;
+    --primary-2-dark: #80DEEA;
+    --primary-2-light: #0097A7;
+    --primary-3-dark: #4DD0E1;
+    --primary-3-light: #00ACC1;
+
+    --accent: #673AB7;
+    --accent-1-dark: #D1C4E9;
+    --accent-1-light: #512DA8;
+    --accent-2-dark: #D1C4E9;
+    --accent-2-light: #5E35B1;
+    --accent-3-dark: #B39DDB;
+    --accent-3-light: #673AB7;
+}

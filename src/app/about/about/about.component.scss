@@ -1,18 +1,5 @@
 @import '../../app.component.scss';
 
-/* *{
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-} */
-
-.container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
 .card{
     height: 280px;
     max-width: 30%;
@@ -92,16 +79,4 @@
 
 img {
     width: 100%;
-}
-
-@media screen and (max-width: 978px) {
-    .container{
-        flex-wrap: wrap;
-        flex-direction: column;
-    }
-
-    .card{
-        max-width: 700px;
-        margin: 20px 0;
-    }
 }

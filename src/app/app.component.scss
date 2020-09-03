@@ -1,15 +1,7 @@
 
 
 .route-container {
-    position: absolute;
-    /* background: black; */
-    left: 240px;
-    height: 100%;
-    overflow: auto;
-    top: 0px;
-    width: -webkit-calc(100% - 240px);
-    width:    -moz-calc(100% - 240px);
-    width:         calc(100% - 240px);
+    padding-top: 20px;
 }
 
 .main-container {
@@ -24,5 +16,27 @@
 }
 
 .tool-item {
-    margin-left: 10px;
+    margin-left: 15px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: large;
+    letter-spacing: .5px;
+}
+
+:host-context(.light-theme) .title {
+    color: var(--title-light-theme);
+}
+
+:host-context(.dark-theme) .title {
+    color: var(--title-dark-theme);
+}
+
+:host-context(.light-theme) .subtitle {
+    color: var(--subtitle-light-theme);
+}
+
+:host-context(.dark-theme) .subtitle {
+    color: var(--subtitle-dark-theme);
 }

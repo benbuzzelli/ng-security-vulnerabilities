@@ -1,7 +1,7 @@
 <span [ngClass]="theme">
     <mat-toolbar>
         <img class="image-icon" src="../../../assets/img/whale-small.png">
-        <span class="tool-item">Security Whale</span>
+        <span class="tool-item title">Security Whale</span>
         <span class="spacer"></span>
         <button mat-stroked-button color="primary" (click)="toggleTheme()" mat-button>{{ switchToText }}</button>
     </mat-toolbar>
@@ -9,7 +9,7 @@
         <mat-drawer style="width: 200px;" mode="side" opened>
             <app-navbar></app-navbar>
         </mat-drawer>
-        <mat-drawer-content>
+        <mat-drawer-content class="route-container">
             <router-outlet></router-outlet>
         </mat-drawer-content>
     <!-- <div class="route-container"> -->
