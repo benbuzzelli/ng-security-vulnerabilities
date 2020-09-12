@@ -58,9 +58,22 @@ export class GitService {
     return url.substring(this.getIndexOfNthOccurence(url, '/', 3), index)
   }
 
+  private getSha(url) {
+    let index = this.getIndexOfNthOccurence(url, '/', 5)
+    index = index == -1 ? url.length : index
+    return url.substring(this.getIndexOfNthOccurence(url, '/', 3), index)
+  }
+
   private getUrl(jsonObj) {
     console.log(this.getPath(jsonObj.url))
     return 'https://api.github.com/repos' + this.getPath(jsonObj.url) + '/commits?until=' + jsonObj.publishedDate + '&per_page=100'
+  }
+
+  private getSingleCommitUrl(jsonObj) {
+    console.log(this.getPath(jsonObj.url))
+    let urlStrings = jsonObj.url.split("/");
+
+    // return 'https://api.github.com/repos' + this.getPath(jsonObj.url) + '/commits' + 
   }
 
   private extractCommits(data: any) {
@@ -74,6 +87,19 @@ export class GitService {
   }
 
   addMLData(jsonString) {
+    let jsonObj = JSON.parse(jsonString)
+    let url = this.getUrl(jsonObj)
+    let myId = uuid.v4();
+
+    this.http.get<any>(url).subscribe( data => {
+      console.log(data)
+      let commits = this.extractCommits(data)
+      let mlData = new MLData(jsonObj.url, jsonObj.publishedDate, jsonObj.severity, jsonObj.vulnerable, commits)
+      this.afs.collection<MLData>('ml-data').doc(myId).set(JSON.parse(JSON.stringify(mlData)));
+    })
+  }
+
+  getFilePathsFromCommit(jsonString) {
     let jsonObj = JSON.parse(jsonString)
     let url = this.getUrl(jsonObj)
     let myId = uuid.v4();

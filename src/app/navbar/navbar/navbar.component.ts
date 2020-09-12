@@ -1,7 +1,8 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Renderer2, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized  } from  "@angular/router";
 import { filter } from 'rxjs/operators';
 import { NONE_TYPE } from '@angular/compiler';
+import {MatButtonToggle} from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,7 @@ import { NONE_TYPE } from '@angular/compiler';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  @ViewChild('dashboard') dashboard: ElementRef
+  @ViewChild('dashboard') dashboard: MatButtonToggle
   @ViewChild('history') history: ElementRef
   @ViewChild('ml') ml: ElementRef
   @ViewChild('about') about: ElementRef
@@ -27,7 +28,7 @@ export class NavbarComponent implements OnInit {
 
   elementRef: ElementRef
 
-  constructor(public router: Router, elementRef:ElementRef) {
+  constructor(public router: Router, private renderer: Renderer2) {
     router.events.pipe(
       filter(event => event instanceof NavigationEnd)  
     ).subscribe((event: NavigationEnd) => {
@@ -55,8 +56,6 @@ export class NavbarComponent implements OnInit {
           break;
       }
     });
-
-    this.elementRef = elementRef.nativeElement
 
     let theme = window.localStorage.getItem('theme')
 
