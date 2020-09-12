@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { RepositoryService } from "./repository.service"
 import { AngularFirestore } from '@angular/fire/firestore';
+import { firestore } from 'firebase';
 import * as uuid from 'uuid';
 
 export class MLData {
@@ -48,7 +49,6 @@ export class GitService {
       for (let i = 0; i < n; i++) {
           index = searchString.indexOf(pattern, index + 1)
       }
-      console.log(n + ": " + index)
       return index
   }
 
@@ -64,16 +64,18 @@ export class GitService {
     return url.substring(this.getIndexOfNthOccurence(url, '/', 3), index)
   }
 
-  private getUrl(jsonObj) {
-    console.log(this.getPath(jsonObj.url))
-    return 'https://api.github.com/repos' + this.getPath(jsonObj.url) + '/commits?until=' + jsonObj.publishedDate + '&per_page=100'
+  private getUrl(httpObj, path) {
+    return 'https://api.github.com/repos/' + httpObj.repoPath + '/commits?until=' + httpObj.publishedDate + '&per_page=10&path=' + path
   }
 
-  private getSingleCommitUrl(jsonObj) {
-    console.log(this.getPath(jsonObj.url))
-    let urlStrings = jsonObj.url.split("/");
+  getSingleCommitUrl(url) {
+    let urlStrings = url.split("/");
+    return 'https://api.github.com/repos/' + urlStrings[3] + '/' + urlStrings[4] + '/commits/' + urlStrings[6]
+  }
 
-    // return 'https://api.github.com/repos' + this.getPath(jsonObj.url) + '/commits' + 
+  private isValidUrl(url) {
+    let urlStrings = url.split("/");
+    return (urlStrings.length == 7 && urlStrings[0] == "https:" && urlStrings[1] == "" && urlStrings[2] == "github.com" && urlStrings[5] == "commit")
   }
 
   private extractCommits(data: any) {
@@ -86,29 +88,73 @@ export class GitService {
     return commits
   }
 
-  addMLData(jsonString) {
-    let jsonObj = JSON.parse(jsonString)
-    let url = this.getUrl(jsonObj)
-    let myId = uuid.v4();
+  private getFilePathsFromCommit(data: any) {
+    let filepaths = []
 
-    this.http.get<any>(url).subscribe( data => {
-      console.log(data)
-      let commits = this.extractCommits(data)
-      let mlData = new MLData(jsonObj.url, jsonObj.publishedDate, jsonObj.severity, jsonObj.vulnerable, commits)
-      this.afs.collection<MLData>('ml-data').doc(myId).set(JSON.parse(JSON.stringify(mlData)));
+    data.files.forEach(file => {
+      filepaths.push(file?.filename)
+    })
+
+    return filepaths
+  }
+
+  addMLData(jsonObj, data) {
+    let myId = uuid.v4();
+    let commits = this.extractCommits(data)
+    let mlData = new MLData(jsonObj.url, jsonObj.publishedDate, jsonObj.severity, jsonObj.vulnerable, commits)
+
+    let repoName = this.getRepoPath(jsonObj.url).split("/")[1]
+
+    // this.afs.collection<MLData>('ml-data').doc(myId).set(JSON.parse(JSON.stringify(mlData)));
+    let repoRef = this.afs.collection<MLData>('ml-data');
+    let document = repoRef.doc(repoName)
+    // document.set(JSON.parse(JSON.stringify(mlData)), {merge: true})
+    document.set({
+      url: mlData.url,
+      publishedDate: mlData.publishedDate,
+      severity: mlData.severity,
+      vulnerable: mlData.vulnerable
+    }, { merge: true });
+
+    console.log("LENGTH = " + mlData.commits.length)
+
+    mlData.commits.forEach( commit => {
+      document.update({commits: firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(commit)))})
     })
   }
 
-  getFilePathsFromCommit(jsonString) {
-    let jsonObj = JSON.parse(jsonString)
-    let url = this.getUrl(jsonObj)
-    let myId = uuid.v4();
+  private getRepoPath(url) {
+    let urlStrings = url.split("/");
+    return urlStrings[3] + '/' + urlStrings[4]
+  }
 
-    this.http.get<any>(url).subscribe( data => {
-      console.log(data)
-      let commits = this.extractCommits(data)
-      let mlData = new MLData(jsonObj.url, jsonObj.publishedDate, jsonObj.severity, jsonObj.vulnerable, commits)
-      this.afs.collection<MLData>('ml-data').doc(myId).set(JSON.parse(JSON.stringify(mlData)));
+  getCommitsForFiles(jsonString) {
+    let jsonObj = JSON.parse(jsonString)
+  
+    if (!this.isValidUrl(jsonObj.url)) {
+      console.log("Not a valid commit url!")
+      return;
+    }
+
+    let endpoint = this.getSingleCommitUrl(jsonObj.url)
+
+    let httpObj = {
+      repoPath: this.getRepoPath(jsonObj.url), 
+      publishedDate: jsonObj.publishedDate
+    }
+
+    this.http.get<any>(endpoint).subscribe( data => {
+      let filepaths = this.getFilePathsFromCommit(data)
+      console.log(filepaths)
+
+      filepaths.forEach(path => {
+        let url = this.getUrl(httpObj, path)
+        console.log(url)
+        this.http.get<any>(url).subscribe( data => {
+          console.log(data)
+          this.addMLData(jsonObj, data)
+        })
+      })
     })
   }
 }

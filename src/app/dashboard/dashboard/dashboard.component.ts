@@ -46,8 +46,8 @@ export class DashboardComponent implements OnInit {
     this.repositoryService.addRepository(url)
   }
 
-  addMLData(jsonString: String) {
-    this.gitService.addMLData(jsonString)
+  getUrl(url: String) {
+    this.gitService.getCommitsForFiles(url)
   }
 
   @HostListener('window:resize', ['$event'])
