@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
 import { AboutComponent } from './about/about/about.component';
 
+import {CsvService} from 'angular2-json2csv'
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';

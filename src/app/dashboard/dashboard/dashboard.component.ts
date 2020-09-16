@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@
 import { Router } from  "@angular/router";
 import { RepositoryService } from "../../services/repository.service"
 import { GitService } from "../../services/git.service"
+import { DownloadService } from "../../services/download.service"
 
 @Component({
   selector: 'app-dashboard',
@@ -31,7 +32,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(public router: Router, 
     private repositoryService: RepositoryService,
-    private gitService: GitService) {
+    private gitService: GitService,
+    private downloadService: DownloadService) {
 
   }
 
@@ -48,6 +50,10 @@ export class DashboardComponent implements OnInit {
 
   getUrl(url: String) {
     this.gitService.getCommitsForFiles(url)
+  }
+
+  downloadCSV(collectionName) {
+    this.downloadService.downloadCSV(collectionName)
   }
 
   @HostListener('window:resize', ['$event'])
