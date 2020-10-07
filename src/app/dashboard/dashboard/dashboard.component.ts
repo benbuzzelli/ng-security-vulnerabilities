@@ -6,8 +6,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { NgxSpinnerService } from "ngx-spinner";  
 import { url } from 'inspector';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable'; 
 
 export interface DashboardTable {
   position: string;
@@ -68,10 +68,31 @@ export class DashboardComponent implements OnInit {
     localStorage.setItem('url', url); 
   }
 
-  downloadPdf(dataSource) {
-    const doc = new jsPDF();
-    var columns = ["Position", "Files", " Num. of Commits", "Severity"]
-    doc.autoTable(dataSoure,columns );
-
+  DownloadPdf(dataSource) {
+    var pdf = new jsPDF();
+    var today = new Date(); 
+    var newdate = "Date Printed: " + today; 
+    const columns = [["File No.", "Files", "No. of Commits", "Severity"]];
+    const data = [
+      ['1', 'ng-security-vulnerabilities', 11, 'LOW'],
+      ['1', 'ng-security-vulnerabilities', 11, 'LOW'],
+      ['1', 'ng-security-vulnerabilities', 11, 'LOW'],
+      ['1', 'ng-security-vulnerabilities', 11, 'LOW'],
+      ['1', 'ng-security-vulnerabilities', 11, 'LOW'],
+      ['1', 'ng-security-vulnerabilities', 11, 'LOW'],
+      ['1', 'ng-security-vulnerabilities', 11, 'LOW']
+    ];
+    pdf.text("Security Whale Vulnerability Assessment", 47, 10);
+    pdf.setFontSize(10); 
+    pdf.text(newdate, 42, 15);
+    var github_link = "github.com/securitywhale"; 
+    var newgithub = "Github Link : " + github_link; 
+    pdf.text(newgithub, 62, 20);
+    autoTable(pdf, {
+      margin: { top: 30 },
+      head: columns,
+      body: data,   
+    }); 
+    pdf.save("Security-Whale.pdf"); 
   }
 }
