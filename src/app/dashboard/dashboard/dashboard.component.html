@@ -18,7 +18,7 @@
     </table>  -->
     <!-- </div> -->
     <button mat-stroked-button color="primary" (click)="downloadCSV('ml-data')"> Download CSV </button>
-    <mat-expansion-panel hideToggle class="panel">
+    <!-- <mat-expansion-panel hideToggle class="panel">
         <mat-expansion-panel-header>
             <div style="width: 100%;" class="center">
                 <input type="url" #url placeholder="https://github.com/">
@@ -33,7 +33,6 @@
                 </div>
             </mat-grid-tile>
             <mat-grid-tile class="grid-tile grid-tr grid-br" [colspan]="4" [rowspan]="6">
-                <!-- <h2>Severity</h2> -->
                 <div #severityIconDiv class="image-icon-div">
                     <span class="grid-text-header">NOT VULNERABLE</span><br>
                     <mat-icon style="color: #76ff03;" [ngStyle]="scalables.severityIcon.style">verified</mat-icon>
@@ -46,12 +45,16 @@
                 <span class="grid-description">Commits tested:</span><span class="grid-text">85</span>
             </mat-grid-tile>
         </mat-grid-list>
-    </mat-expansion-panel>
+    </mat-expansion-panel> -->
     <br>
-    <div style="width: 100%;" class="center">
+    <div style="width: 100%; min-width: 500px;" class="center">
         <input type="url" #commit placeholder="Enter commit message...">
         <button mat-stroked-button color="primary" (click)="getPrediction(commit.value)"> Get Prediction </button>
     </div>
+    <br>
+    <p>
+        {{prediction}}
+    </p>
 </div>
 <!-- <div class = "container">
     <div class="card">

@@ -12,6 +12,8 @@ import { MlServiceService } from "../../services/ml-service.service"
 })
 export class DashboardComponent implements OnInit {
 
+  prediction = ''
+
   @ViewChild('severityIconDiv') severityIconDiv: ElementRef;
 
   scalables = {
@@ -78,7 +80,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getPrediction(data: String) {
-    this.mls.predict(data)
+  async getPrediction(endpoint: String) {
+    (await this.mls.getPrediction(endpoint)).subscribe(prediction => {
+      this.prediction = prediction
+    })
   }
 }

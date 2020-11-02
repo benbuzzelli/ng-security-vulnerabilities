@@ -80,7 +80,7 @@ export class GitService {
     return (urlStrings.length == 7 && urlStrings[0] == "https:" && urlStrings[1] == "" && urlStrings[2] == "github.com" && urlStrings[5] == "commit")
   }
 
-  private extractCommits(data: any) {
+  public extractCommits(data: any) {
     let commits = []
     data.forEach(element => {
       // console.log(JSON.parse(JSON.stringify(element)))
@@ -123,7 +123,7 @@ export class GitService {
     })
   }
 
-  private getRepoPath(url) {
+  public getRepoPath(url) {
     let urlStrings = url.split("/");
     return urlStrings[3] + '/' + urlStrings[4]
   }
@@ -166,6 +166,7 @@ export class GitService {
   async loopThroughFiles(filepaths, httpObj, jsonObj) {
     for (let i = 0; i < filepaths.length; i++) {
       let url = this.getUrl(httpObj, filepaths[i])
+      console.log("specific file endpoint: " + url)
       await this.http.get<any>(url).toPromise().then( data => {
         this.addMLData(jsonObj, data)
       })
