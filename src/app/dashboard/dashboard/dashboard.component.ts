@@ -3,6 +3,7 @@ import { Router } from  "@angular/router";
 import { RepositoryService } from "../../services/repository.service"
 import { GitService } from "../../services/git.service"
 import { DownloadService } from "../../services/download.service"
+import { MlServiceService } from "../../services/ml-service.service"
 
 @Component({
   selector: 'app-dashboard',
@@ -33,7 +34,8 @@ export class DashboardComponent implements OnInit {
   constructor(public router: Router, 
     private repositoryService: RepositoryService,
     private gitService: GitService,
-    private downloadService: DownloadService) {
+    private downloadService: DownloadService,
+    private mls: MlServiceService) {
 
   }
 
@@ -74,5 +76,9 @@ export class DashboardComponent implements OnInit {
     scalable.attributes.forEach(attribute => {
       scalable.style[attribute] = (scalar * scalable.scaleFactor).toString() + scalable.unit
     });
+  }
+
+  getPrediction(data: String) {
+    this.mls.predict(data)
   }
 }

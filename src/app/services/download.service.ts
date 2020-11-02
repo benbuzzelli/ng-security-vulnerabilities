@@ -30,13 +30,12 @@ export class DownloadService {
   constructor(private afs: AngularFirestore) { }
 
   downlsoadCSV() {
-    console.log("HERE")
     let mlDataRef1 = this.afs.collection<MLData>('ml-data').get();
     let mlDataRef = this.afs.collection<MLData>('ml-data').doc("linux");
 
     mlDataRef.get().toPromise().then(function(doc) {
       if (doc.exists) {
-          console.log("Document data:", doc.data());
+          // console.log("Document data:", doc.data());
       } else {
           // doc.data() will be undefined in this case
           console.log("No such document!");
@@ -83,7 +82,6 @@ export class DownloadService {
       });
     })
 
-    console.log("Downloading csv")
     this.downloadFile(formattedJson, "sample-data")
 
     // this.csvService.download(this.getCollectionData(collectionName), 'sample-data.csv');
@@ -112,31 +110,10 @@ export class DownloadService {
         let line = (i+1)+'';
         for (let index in headerList) {
            let head = headerList[index];
-            console.log(array[i][head])
             line += ',' + array[i][head];
         }
         str += line + '\r\n';
     }
     return str;
-}
-
-  // ConvertToCSV(objArray, headerList) { 
-  //   let array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray; 
-  //   let str = ''; 
-  //   let row = 'S.No, '; 
-  //   for (let index in headerList) { 
-  //       row += headerList[index] + ', '; 
-  //   } 
-  //   row = row.slice(0, -1); 
-  //   str += row + '\r\n'; 
-  //   for (let i = 0; i & lt; array.length; i++) { 
-  //       let line = (i + 1) + & #039;&# 039;; 
-  //       for (let index in headerList) { 
-  //           let head = headerList[index]; 
-  //           line += & #039;, &# 039; + array[i][head]; 
-  //       } 
-  //       str += line + & #039;\r\n&# 039;; 
-  //   } 
-  //   return str; 
-  // } 
+  }
 }
