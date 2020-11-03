@@ -1,9 +1,19 @@
 <div style="width: 85%;" class="center">
     <input type="url" #url placeholder="https://github.com/">
     <button mat-stroked-button color="primary" (click)="runTest()"> Run Test </button>
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="selected">
+          <mat-option>None</mat-option>
+          <mat-option value="option1">Skew 1</mat-option>
+          <mat-option value="option2">Skew 2</mat-option>
+          <mat-option value="option3">Skew 3</mat-option>
+        </mat-select>
+      </mat-form-field>
 </div>
 
-<table mat-table [dataSource]="dataSource">
+<table mat-table [dataSource]="dataSource" matSort>
     <!-- Position Column -->
     <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef> No. </th>
@@ -32,7 +42,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<mat-paginator [pageSizeOptions]="[1,5,10,15,20]" showFirstLastButtons></mat-paginator>
+
+<mat-paginator [pageSizeOptions]="[1,5,10]" showFirstLastButtons></mat-paginator>
 
 <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "pacman" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
 

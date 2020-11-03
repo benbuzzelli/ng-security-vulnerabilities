@@ -18,13 +18,13 @@ export interface DashboardTable {
 
 
 const DASHBOARD_DATA: DashboardTable[] = [
-  {position: '1', files:'ng-security-vulnerabilities', commits: 11, severity: 'LOW' },
-  {position: '2', files:'ng-security-vulnerabilities', commits: 11, severity: 'LOW' },
-  {position: '3', files:'ng-security-vulnerabilities', commits: 11, severity: 'LOW' },
-  {position: '4', files:'ng-security-vulnerabilities', commits: 11, severity: 'LOW' },
-  {position: '5', files:'ng-security-vulnerabilities', commits: 11, severity: 'LOW' },
-  {position: '6', files:'ng-security-vulnerabilities', commits: 11, severity: 'LOW' },
-  {position: '7', files:'ng-security-vulnerabilities', commits: 11, severity: 'LOW' },
+  {position: '1', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+  {position: '2', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+  {position: '3', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+  {position: '4', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+  {position: '5', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+  {position: '6', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+  {position: '7', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
 ];
 
 @Component({
@@ -34,7 +34,7 @@ const DASHBOARD_DATA: DashboardTable[] = [
 })
 
 
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements AfterViewInit {
 
   constructor(public router: Router, 
     private repositoryService: RepositoryService,
@@ -46,8 +46,8 @@ export class DashboardComponent implements OnInit {
 
   displayedColumns: string[] = ['position','files','commits','severity'];
   dataSource = new MatTableDataSource<DashboardTable>(DASHBOARD_DATA);
-
-  ngOnInit(): void {
+  
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
 
@@ -70,17 +70,19 @@ export class DashboardComponent implements OnInit {
 
   DownloadPdf(dataSource) {
     var pdf = new jsPDF();
-    var today = new Date(); 
+    var today = new Date();
+    var img = new Image();
+    img.src = 'assets/img/whale.png' 
     var newdate = "Date Printed: " + today; 
     const columns = [["File No.", "Files", "No. of Commits", "Severity"]];
     const data = [
-      ['1', 'ng-security-vulnerabilities', 11, 'LOW'],
-      ['1', 'ng-security-vulnerabilities', 11, 'LOW'],
-      ['1', 'ng-security-vulnerabilities', 11, 'LOW'],
-      ['1', 'ng-security-vulnerabilities', 11, 'LOW'],
-      ['1', 'ng-security-vulnerabilities', 11, 'LOW'],
-      ['1', 'ng-security-vulnerabilities', 11, 'LOW'],
-      ['1', 'ng-security-vulnerabilities', 11, 'LOW']
+      ['1', 'ng-security-vulnerabilities', 11, '10%'],
+      ['2', 'ng-security-vulnerabilities', 11, '10%'],
+      ['3', 'ng-security-vulnerabilities', 11, '10%'],
+      ['4', 'ng-security-vulnerabilities', 11, '10%'],
+      ['5', 'ng-security-vulnerabilities', 11, '10%'],
+      ['6', 'ng-security-vulnerabilities', 11, '10%'],
+      ['7', 'ng-security-vulnerabilities', 11, '10%']
     ];
     pdf.text("Security Whale Vulnerability Assessment", 47, 10);
     pdf.setFontSize(10); 
@@ -88,6 +90,7 @@ export class DashboardComponent implements OnInit {
     var github_link = "github.com/securitywhale"; 
     var newgithub = "Github Link : " + github_link; 
     pdf.text(newgithub, 62, 20);
+    pdf.addImage(img, 'png', 10, 78,12, 15 ); 
     autoTable(pdf, {
       margin: { top: 30 },
       head: columns,
