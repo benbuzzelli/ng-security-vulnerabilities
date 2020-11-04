@@ -1,1 +1,15 @@
 @import '../app.component.scss';
+
+.example-card {
+  max-width: 400px;
+  float: left;
+  padding-right: 50px;
+  margin-right: 50px;
+  margin-left: 55px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+
+}
