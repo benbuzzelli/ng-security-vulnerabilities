@@ -34,7 +34,7 @@ const DASHBOARD_DATA: DashboardTable[] = [
 })
 
 
-export class DashboardComponent implements AfterViewInit {
+export class DashboardComponent implements  OnInit {
 
   constructor(public router: Router, 
     private repositoryService: RepositoryService,
