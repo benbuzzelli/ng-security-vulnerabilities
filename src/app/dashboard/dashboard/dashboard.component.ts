@@ -44,10 +44,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
-    this.resizeScalables()
-  }
-
   addRepository(url: String) {
     this.repositoryService.addRepository(url)
   }
@@ -58,26 +54,6 @@ export class DashboardComponent implements OnInit {
 
   downloadCSV(collectionName) {
     this.downloadService.downloadCSV(collectionName)
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.resizeScalables()
-  }
-
-  resizeScalables() {
-    Object.keys(this.scalables).forEach(key => {
-      this.resizeScalable(this.scalables[key])
-    });
-  }
-
-  resizeScalable(scalable) {
-    let ref = this[scalable.elementRefKey]
-    let scalar = ref.nativeElement[scalable.refKey]
-    console.log(scalar)
-    scalable.attributes.forEach(attribute => {
-      scalable.style[attribute] = (scalar * scalable.scaleFactor).toString() + scalable.unit
-    });
   }
 
   async getPrediction(endpoint: String) {
