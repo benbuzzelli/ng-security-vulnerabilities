@@ -1,9 +1,7 @@
 @import '../../app.component.scss';
   
 table{
-  width: 85%;
-  margin-left: 100px;
-  margin-top: 15px;
+  width: 100%;
   margin-bottom: 15px;
 }
 .mat-column-files {
@@ -29,9 +27,9 @@ table{
 }
 
 mat-form-field{
-  padding-left: 50px;
-  height: 10%;
-  width: 30%;
+  padding-left: 20px;
+  // height: 20px;
+  // width: 60px;
 }
 
 mat-paginator{

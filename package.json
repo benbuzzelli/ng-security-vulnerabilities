@@ -33,7 +33,6 @@
     "@tensorflow/tfjs": "^2.7.0",
     "angular": "^1.8.2",
     "angular2-json2csv": "^1.1.2",
-    "firebase": "^7.19.1",
     "int64-buffer": "^1.0.0",
     "jquery": "^3.5.1",
     "json-int64": "^1.0.2",

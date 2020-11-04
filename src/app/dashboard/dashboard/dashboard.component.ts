@@ -3,31 +3,37 @@ import { Router } from  "@angular/router";
 import { RepositoryService } from "../../services/repository.service"
 import { GitService } from "../../services/git.service"
 import { DownloadService } from "../../services/download.service"
-import { MlServiceService } from "../../services/ml-service.service"
+import { MlServiceService, Prediction, Repository } from "../../services/ml-service.service"
+import { AngularFirestore } from '@angular/fire/firestore';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { NgxSpinnerService } from "ngx-spinner";  
 import { url } from 'inspector';
 import { jsPDF } from "jspdf";
 import autoTable from 'jspdf-autotable'; 
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 export interface DashboardTable {
   position: string;
-  files: string;
+  date: string;
   commits: number;
+  nonVulnerableCommits: number;
+  vulnerableCommits: number;
   severity: string;
 } 
 
 
-const DASHBOARD_DATA: DashboardTable[] = [
-  {position: '1', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-  {position: '2', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-  {position: '3', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-  {position: '4', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-  {position: '5', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-  {position: '6', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-  {position: '7', files:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-];
+// const DASHBOARD_DATA: DashboardTable[] = [
+//   {position: '1', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+//   {position: '2', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+//   {position: '3', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+//   {position: '4', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+//   {position: '5', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+//   {position: '6', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+//   {position: '7', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
+// ];
 
 @Component({
   selector: 'app-dashboard',
@@ -37,7 +43,9 @@ const DASHBOARD_DATA: DashboardTable[] = [
 
 export class DashboardComponent implements  OnInit {
   
-  prediction = ''
+  prediction
+
+  repository$: Observable<Repository[]>
 
   @ViewChild('severityIconDiv') severityIconDiv: ElementRef;
 
@@ -46,17 +54,38 @@ export class DashboardComponent implements  OnInit {
     private gitService: GitService,
     private spinner: NgxSpinnerService,
     private downloadService: DownloadService,
-    private mls: MlServiceService) {
+    private mls: MlServiceService,
+    private afs: AngularFirestore,) {
 
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['position','files','commits','severity'];
-  dataSource = new MatTableDataSource<DashboardTable>(DASHBOARD_DATA);
+  displayedColumns: string[] = ['position','date','commits','nonVulnerableCommits','vulnerableCommits','severity'];
+  dataSource = new MatTableDataSource()
+
+  ngOnInit(): void {
+    
+  }
   
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  async getRepository(repository) {
+    // this.mls.getRepository("ng-security-vulnerabilities").subscribe(res =>(this.repository = res))
+    this.repository$ = await this.mls.getRepository(repository)
+    // console.log(data)
+
+    // let repoRef = this.afs.collection<Repository>("repositories", ref => ref.where('name','==', repository ))
+    // return repoRef.snapshotChanges().pipe(map(actions => {
+    //   return actions.map(action => {
+    //     let repo = action.payload.doc.data() as Repository;
+    //     let predictions = repo.predictions
+    //     this.dataSource.data = predictions
+    //     return repo;
+    //   });
+    // }));
   }
   
   addRepository(url: String) {
@@ -115,9 +144,17 @@ export class DashboardComponent implements  OnInit {
     this.downloadService.downloadCSV(collectionName)
   }
 
+  // addPrediction(prediction) {
+  //   this.mls.addPrediction(prediction)
+  //   this.getRepository("ng-security-vulnerabilities")
+  // }
+
   async getPrediction(endpoint: String) {
-    (await this.mls.getPrediction(endpoint)).subscribe(prediction => {
-      this.prediction = prediction
+    await (await this.mls.getPrediction(endpoint)).subscribe(p => {
+      console.log(p)
+      this.prediction = this.mls.addPrediction(endpoint, p)
+      this.mls.makePrediction(this.prediction)
+      this.getRepository(this.prediction.repository)
     })
   }
 }
