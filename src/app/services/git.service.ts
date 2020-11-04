@@ -42,6 +42,8 @@ export class Commit {
 })
 export class GitService {
 
+  working: Boolean = false
+
   constructor(private afs: AngularFirestore, private repositoryService: RepositoryService, private http: HttpClient) { }
 
   private getIndexOfNthOccurence(searchString, pattern, n) {
@@ -65,7 +67,7 @@ export class GitService {
   }
 
   private getUrl(httpObj, path) {
-    return 'https://api.github.com/repos/' + httpObj.repoPath + '/commits?until=' + httpObj.publishedDate + '&per_page=10&path=' + path
+    return 'https://api.github.com/repos/' + httpObj.repoPath + '/commits?until=' + httpObj.publishedDate + '&per_page=100&path=' + path
   }
 
   getSingleCommitUrl(url) {
@@ -78,7 +80,7 @@ export class GitService {
     return (urlStrings.length == 7 && urlStrings[0] == "https:" && urlStrings[1] == "" && urlStrings[2] == "github.com" && urlStrings[5] == "commit")
   }
 
-  private extractCommits(data: any) {
+  public extractCommits(data: any) {
     let commits = []
     data.forEach(element => {
       // console.log(JSON.parse(JSON.stringify(element)))
@@ -115,46 +117,62 @@ export class GitService {
       severity: mlData.severity,
       vulnerable: mlData.vulnerable
     }, { merge: true });
-
-    console.log("LENGTH = " + mlData.commits.length)
-
+    
     mlData.commits.forEach( commit => {
       document.update({commits: firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(commit)))})
     })
   }
 
-  private getRepoPath(url) {
+  public getRepoPath(url) {
     let urlStrings = url.split("/");
     return urlStrings[3] + '/' + urlStrings[4]
   }
 
-  getCommitsForFiles(jsonString) {
-    let jsonObj = JSON.parse(jsonString)
+  async getCommitsForFiles(jsonString) {
+    this.working = false
+    let jsonObjArray = JSON.parse(jsonString)
+
+    for (let i = 0; i < jsonObjArray.length; i++) {
+      // console.log("Next iteration")
+      if (!this.isValidUrl(jsonObjArray[i].url)) {
+        console.log("Not a valid commit url!")
+        continue;
+      }
   
-    if (!this.isValidUrl(jsonObj.url)) {
-      console.log("Not a valid commit url!")
-      return;
+      let endpoint = this.getSingleCommitUrl(jsonObjArray[i].url)
+  
+      let httpObj = {
+        repoPath: this.getRepoPath(jsonObjArray[i].url), 
+        publishedDate: jsonObjArray[i].publishedDate
+      }
+      console.log("Getting commits for url: " + jsonObjArray[i].url)
+      await this.getCommitsFromFiles(endpoint, httpObj, jsonObjArray[i])
+      console.log("Finished for: " + jsonObjArray[i].url)
     }
+  }
 
-    let endpoint = this.getSingleCommitUrl(jsonObj.url)
-
-    let httpObj = {
-      repoPath: this.getRepoPath(jsonObj.url), 
-      publishedDate: jsonObj.publishedDate
-    }
-
-    this.http.get<any>(endpoint).subscribe( data => {
+  async getCommitsFromFiles(endpoint, httpObj, jsonObj) {
+    await this.http.get<any>(endpoint).toPromise().then( async data => {
       let filepaths = this.getFilePathsFromCommit(data)
-      console.log(filepaths)
 
-      filepaths.forEach(path => {
-        let url = this.getUrl(httpObj, path)
-        console.log(url)
-        this.http.get<any>(url).subscribe( data => {
-          console.log(data)
-          this.addMLData(jsonObj, data)
-        })
-      })
+      await this.loopThroughFiles(filepaths, httpObj, jsonObj)
     })
+  }
+
+  async delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  async loopThroughFiles(filepaths, httpObj, jsonObj) {
+    for (let i = 0; i < filepaths.length; i++) {
+      let url = this.getUrl(httpObj, filepaths[i])
+      console.log("specific file endpoint: " + url)
+      await this.http.get<any>(url).toPromise().then( data => {
+        this.addMLData(jsonObj, data)
+      })
+      // console.log("waiting...")
+      await this.delay(1000)
+      // console.log("Done waiting")
+    }
   }
 }

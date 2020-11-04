@@ -1,37 +1,92 @@
-<div class="accordion">
-    <div>
-      <input type="radio" name="example_accordion" id="section1" class="accordion__input">
-      <label for="section1" class="accordion__label">Section #1</label>
-      <div class="accordion__content">
-        <p>Why we use skews</p>
-        <p>
-          The skews are there to help users find a middle ground of how vulnerable they think their github 
-          repo could be. With the different skews having a different amount non vulnerable to vulnerable github reports 
-          the ML will be able to give you a more precise evaluation. 
-        </p>
-      </div>
-    </div>
-    <div>
-      <input type="radio" name="example_accordion" id="section2" class="accordion__input">
-      <label for="section2" class="accordion__label">What ML Models Have we tried</label>
-      <div class="accordion__content">
-        <p>Section #2</p>
-        <p>
-          For the ML models that we have tried it varies from a nueral netowrl, to a forest models. 
-          With these models we are trying to see if either a supervised or unsupervised model will 
-          yield any different results. 
-        </p>
-      </div>
-    </div>
-    <div>
-      <input type="radio" name="example_accordion" id="section3" class="accordion__input">
-      <label for="section3" class="accordion__label">Is there a difference between good & bad commits</label>
-      <div class="accordion__content">
-        <p>Section #3</p>
-        <p>
-          From one of our ML models its seems like it for sure has seen a difference between a good
-          and bad commit. 
-        </p>
-      </div>
-    </div>
+<!--<div class="container-1">
+          <mat-expansion-panel #panel1>
+              <mat-expansion-panel-header [collapsedHeight]="'80px'" [expandedHeight]="'100px'">
+                  <div>
+                      <span class="title">Machine Learning</span><br>
+                      <span class="subtitle">Examples</span>
+                  </div>
+              </mat-expansion-panel-header>
+            <p> I look better than a blank page.<br>
+        ................................................................................<br>
+        ................................................................................<br>
+        ................................................................................<br>
+        ..............................................,*******..........................<br>
+        .........................................,*******(&*******,.....................<br>
+        ..................................************%&&&&&&&***********,..............<br>
+        .................................,**************&&&&**************..............<br>
+        ................................***********#%&&&&&&&&&%(**********,.............<br>
+        ................................***************#********************............<br>
+        ..................(((((............*%&%**********************&&(,...............<br>
+        ....(((.......(((((((.............*(((((((((((((((((((((((((*...................<br>
+        ...(((((((((,.(((((((((...........(((((((((((((((((((((((((((((((...............<br>
+        ....((((((((((((((((((..........*((((((((((((((((((((((((((((((((((.............<br>
+        .....,((((((((((((((...........(((((((((((((((((((((((((((((((((((((............<br>
+        ..........*((((((((.........((((((((((((((((((((((((((((((((((((((((............<br>
+        .............*(((((((......((((((((((((((((((((((((((((((((((((((((((...........<br>
+        ..............((((((((((((((((((((((((((((((,....((((((((((((((((((((...........<br>
+        ...............*((((((((((((((((((((((((((((,....((((((((((((...................<br>
+        .................((((((((((((((((((((((((((((((((((((((((.......................<br>
+        ...................((((((((((((((((((((((((((((((((,..........**................<br>
+        .....................(((((((((((((((((((((((((((((((((((((((((((((..............<br>
+        ........................((((((((((((((((((((((((((((((((((((((((................<br>
+        ...........................*(((((((((((((((((((((((((((((((((...................<br>
+        .............................((((((((((((((((((((((((((((.......................<br>
+        ...........................(((((((,...,(((((((*.................................<br>
+        ................................................................................<br>
+        ................................................................................<br>
+        ................................................................................<br>
+              </p>
+          </mat-expansion-panel>
   </div>
+-->
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>One-Dimensional Convolutional Neural Network</mat-card-title>
+    <mat-card-subtitle>Image Model</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="../../assets/img/imagemodel1.png" alt="Image Model">
+  <img mat-card-image src="../../assets/img/imagemodel2.png" alt="Image Model">
+  <mat-card-content>
+    <p>
+      Convolutional neural network models were developed for image classification problems,
+      where the model learns an internal representation of a two-dimensional input, in a process
+      referred to as feature learning.
+    </p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Long Short-Term Memory (LSTM) Network</mat-card-title>
+    <mat-card-subtitle>LSTM Network</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="../../assets/img/lstmmodel1.png" alt="Image Model">
+  <img mat-card-image src="../../assets/img/lstmmodel2.png" alt="Image Model">
+  <mat-card-content>
+    <p>
+      Long short-term memory (LSTM) is an artifical recurrent neural network (RNN) architecture
+      used in the field of deep learning. Unlike standard feedforward neural networks, LSTM has
+      feedback connections.
+    </p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Random Decision Forests</mat-card-title>
+    <mat-card-subtitle>Random forests</mat-card-subtitle>
+  </mat-card-header>
+  <!--<img mat-card-image src="../../assets/img/lstmmodel1.png" alt="Image Model">
+  <img mat-card-image src="../../assets/img/lstmmodel2.png" alt="Image Model">-->
+  <mat-card-content>
+    <p>
+      Random forests or random decision forests are an ensemble learning method for classification,
+      regression and other tasks that operate by constructing a multitude of decision trees at training
+      time and outputting the class that is the mode of the classes or mean/average prediction of the
+      individual trees.
+    </p>
+  </mat-card-content>
+</mat-card>

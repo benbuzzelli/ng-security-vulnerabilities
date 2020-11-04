@@ -2,6 +2,8 @@ import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@
 import { Router } from  "@angular/router";
 import { RepositoryService } from "../../services/repository.service"
 import { GitService } from "../../services/git.service"
+import { DownloadService } from "../../services/download.service"
+import { MlServiceService } from "../../services/ml-service.service"
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { NgxSpinnerService } from "ngx-spinner";  
@@ -33,13 +35,19 @@ const DASHBOARD_DATA: DashboardTable[] = [
   styleUrls: ['./dashboard.component.scss']
 })
 
-
 export class DashboardComponent implements  OnInit {
+  
+  prediction = ''
+
+  @ViewChild('severityIconDiv') severityIconDiv: ElementRef;
 
   constructor(public router: Router, 
     private repositoryService: RepositoryService,
     private gitService: GitService,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private downloadService: DownloadService,
+    private mls: MlServiceService) {
+
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -49,6 +57,10 @@ export class DashboardComponent implements  OnInit {
   
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+  
+  addRepository(url: String) {
+    this.repositoryService.addRepository(url)
   }
 
   pushCommitData(url: String) {
@@ -97,5 +109,15 @@ export class DashboardComponent implements  OnInit {
       body: data,   
     }); 
     pdf.save("Security-Whale.pdf"); 
+  }
+
+  downloadCSV(collectionName) {
+    this.downloadService.downloadCSV(collectionName)
+  }
+
+  async getPrediction(endpoint: String) {
+    (await this.mls.getPrediction(endpoint)).subscribe(prediction => {
+      this.prediction = prediction
+    })
   }
 }
