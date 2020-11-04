@@ -8,9 +8,9 @@
             <button mat-stroked-button color="primary" (click)="getPrediction(commit.value)"> Get Prediction </button>
         </div>
         <br>
-        <p>
+        <!-- <p>
             {{prediction}}
-        </p>
+        </p> -->
         <!-- <mat-form-field appearance="fill">
             <mat-label >Select an option</mat-label>
             <mat-select [(value)]="selected">
@@ -23,7 +23,6 @@
     </div>
     <br>
     <div *ngFor="let repo of repository$ | async">
-        <!-- <div class="center">Show results for {{ prediction.repository }}</div> -->
         <table mat-table [dataSource]="repo.predictions" matSort>
             <!-- Position Column -->
             <ng-container matColumnDef="position">
