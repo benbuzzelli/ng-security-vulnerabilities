@@ -26,6 +26,7 @@ import { LegalNotesComponent } from './legal-notes/legal-notes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const appRoutes: Routes = [
   { path:  'dashboard',component:  DashboardComponent},
@@ -53,7 +54,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     MaterialModule,
     MatIconModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
