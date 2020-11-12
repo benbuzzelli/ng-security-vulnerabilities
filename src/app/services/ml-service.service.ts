@@ -42,9 +42,22 @@ export class Prediction {
   providedIn: 'root'
 })
 export class MlServiceService {
+  private myIpAddress = ''
+
   constructor(private afs: AngularFirestore, private gitService: GitService, private http: HttpClient) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getIPAddress();
+  }
+
+
+
+  getIPAddress() {
+    this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
+      this.myIpAddress = res.ip;
+      console.log("your ip is: " + this.myIpAddress)
+    });
+  }
 
   private async getMessagesFromFiles(endpoint) {
     let url = 'https://api.github.com/repos/' + this.gitService.getRepoPath(endpoint) + '/commits?per_page=100'
@@ -54,13 +67,13 @@ export class MlServiceService {
         messages.push(element?.commit?.message)
       });
     })
-    return messages.join("benisfuckingawesome")
+    return messages.join("s3cur!tywh@l3")
   }
 
   async getPrediction(endpoint) {
     let messages = await this.getMessagesFromFiles(endpoint)
     // console.log(messages)
-    let response = await this.http.post("http://127.0.0.1:5000/", messages, {responseType: 'text'})
+    let response = await this.http.post("http://0.0.0.0:8080/", messages, {responseType: 'text'})
     console.log(response)
     return response
   }
