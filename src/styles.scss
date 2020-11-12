@@ -110,6 +110,14 @@ header {
     vertical-align: middle;
 }
 
+.mat-option {
+    background: white;
+}
+
+.mat-option:hover {
+    background: lightgray;
+}
+
 /* button {
     position: relative;
     background: none;
