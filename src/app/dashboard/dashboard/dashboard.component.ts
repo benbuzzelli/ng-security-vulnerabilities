@@ -42,7 +42,7 @@ export interface DashboardTable {
 })
 
 export class DashboardComponent implements  OnInit {
-  
+  selected = 'option1'
   prediction
 
   repository$: Observable<Repository[]>
