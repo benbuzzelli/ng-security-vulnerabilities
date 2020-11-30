@@ -50,8 +50,6 @@ export class MlServiceService {
     this.getIPAddress();
   }
 
-
-
   getIPAddress() {
     this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
       this.myIpAddress = res.ip;
@@ -64,14 +62,18 @@ export class MlServiceService {
     let messages = []
     await this.http.get<any>(url).toPromise().then( data => {
       data.forEach(element => {
+        console.log(element)
         messages.push(element?.commit?.message)
       });
     })
     return messages.join("s3cur!tywh@l3")
   }
 
-  async getPrediction(endpoint) {
+  async getPrediction(endpoint, modelSelection) {
     let messages = await this.getMessagesFromFiles(endpoint)
+
+    messages += "x23model!t@ype!x56" + modelSelection
+
     // console.log(messages)
     let response = await this.http.post("http://0.0.0.0:8080/", messages, {responseType: 'text'})
     console.log(response)

@@ -150,11 +150,11 @@ export class DashboardComponent implements  OnInit {
   // }
 
   async getPrediction(endpoint: String) {
-    await (await this.mls.getPrediction(endpoint)).subscribe(p => {
+    await (await this.mls.getPrediction(endpoint, this.selected)).subscribe(p => {
       console.log(p)
-      this.prediction = this.mls.addPrediction(endpoint, p)
-      this.mls.makePrediction(this.prediction)
-      this.getRepository(this.prediction.repository)
+      // this.prediction = this.mls.addPrediction(endpoint, p)
+      // this.mls.makePrediction(this.prediction)
+      // this.getRepository(this.prediction.repository)
     })
   }
 }
