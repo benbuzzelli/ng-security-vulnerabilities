@@ -22,21 +22,35 @@ export class Repository {
 
 export class Prediction {
   repository: string
+  filepath: string
   date: string
-  numCommits: string
-  isVulnerable: boolean
-  numNonVulnerable: number
-  numVulnerable: number
+  avgVulnerability: Number
 
-  constructor(repository, date, numCommits, isVulnerable, numNonVulnerable, numVulnerable) {
+  constructor(repository, filepath, date, avg) {
     this.repository = repository
+    this.filepath = filepath
     this.date = date
-    this.numCommits = numCommits
-    this.isVulnerable = isVulnerable
-    this.numNonVulnerable = numNonVulnerable
-    this.numVulnerable = numVulnerable
+    this.avgVulnerability = avg
   }
 }
+
+// export class Prediction {
+//   repository: string
+//   date: string
+//   numCommits: string
+//   isVulnerable: boolean
+//   numNonVulnerable: number
+//   numVulnerable: number
+
+//   constructor(repository, date, numCommits, isVulnerable, numNonVulnerable, numVulnerable) {
+//     this.repository = repository
+//     this.date = date
+//     this.numCommits = numCommits
+//     this.isVulnerable = isVulnerable
+//     this.numNonVulnerable = numNonVulnerable
+//     this.numVulnerable = numVulnerable
+//   }
+// }
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +64,8 @@ export class MlServiceService {
     this.getIPAddress();
   }
 
+
+
   getIPAddress() {
     this.http.get("http://api.ipify.org/?format=json").subscribe((res:any)=>{
       this.myIpAddress = res.ip;
@@ -57,20 +73,19 @@ export class MlServiceService {
     });
   }
 
-  private async getMessagesFromFiles(endpoint) {
-    let url = 'https://api.github.com/repos/' + this.gitService.getRepoPath(endpoint) + '/commits?per_page=100'
+  private async getMessagesFromFiles(endpoint, filepath) {
+    let url = 'https://api.github.com/repos/' + this.gitService.getRepoPath(endpoint) + '/commits?per_page=100&path=' + filepath
     let messages = []
     await this.http.get<any>(url).toPromise().then( data => {
       data.forEach(element => {
-        console.log(element)
         messages.push(element?.commit?.message)
       });
     })
     return messages.join("s3cur!tywh@l3")
   }
 
-  async getPrediction(endpoint, modelSelection) {
-    let messages = await this.getMessagesFromFiles(endpoint)
+  async getPrediction(endpoint, modelSelection, filepath) {
+    let messages = await this.getMessagesFromFiles(endpoint, filepath)
 
     messages += "x23model!t@ype!x56" + modelSelection
 
@@ -80,27 +95,38 @@ export class MlServiceService {
     return response
   }
 
-  addPrediction(endpoint, predictionString) {
+  // getPredictionData(endpoint, predictionString, filepath) {
+  //   console.log("Prediction string: " + predictionString)
+  //   let values = predictionString.split(",")
+  //   let repo = this.gitService.getRepoPath(endpoint).split("/")[1]
+  //   console.log("repo: " + repo)
+  //   let nV = parseInt(values[0])
+  //   let nN = parseInt(values[1])
+  //   let nCommits = nV + nN
+  //   let isV = nV > nN
+  //   let date = formatDate(new Date(), 'dd/MM/yyyy-hh:mm:ss', 'en');
+  //   let prediction = new Prediction(repo, date, nCommits, isV, nN, nV)
+
+  //   console.log(prediction)
+  //   // localStorage.setItem('repository', prediction.repository)
+  //   // let repoRef = this.afs.collection<Repository>('repositories');
+  //   // let document = repoRef.doc(prediction.repository)
+  //   // // document.set(JSON.parse(JSON.stringify(mlData)), {merge: true})
+  //   // document.set({
+  //   //   name: prediction.repository,
+  //   //   predictions: firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(prediction)))
+  //   // }, { merge: true });
+  //   return prediction
+  // }
+
+  getPredictionData(endpoint, predictionString, filepath) {
     console.log("Prediction string: " + predictionString)
     let values = predictionString.split(",")
     let repo = this.gitService.getRepoPath(endpoint).split("/")[1]
-    console.log("repo: " + repo)
-    let nV = parseInt(values[0])
-    let nN = parseInt(values[1])
-    let nCommits = nV + nN
-    let isV = nV > nN
     let date = formatDate(new Date(), 'dd/MM/yyyy-hh:mm:ss', 'en');
-    let prediction = new Prediction(repo, date, nCommits, isV, nN, nV)
+    let prediction = new Prediction(repo, filepath, date, Number(values[0]))
 
     console.log(prediction)
-    // localStorage.setItem('repository', prediction.repository)
-    // let repoRef = this.afs.collection<Repository>('repositories');
-    // let document = repoRef.doc(prediction.repository)
-    // // document.set(JSON.parse(JSON.stringify(mlData)), {merge: true})
-    // document.set({
-    //   name: prediction.repository,
-    //   predictions: firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(prediction)))
-    // }, { merge: true });
     return prediction
   }
 

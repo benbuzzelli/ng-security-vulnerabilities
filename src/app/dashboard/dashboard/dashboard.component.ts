@@ -61,7 +61,7 @@ export class DashboardComponent implements  OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['position','date','commits','nonVulnerableCommits','vulnerableCommits','severity'];
+  displayedColumns: string[] = ['position','filepath','avg-vuln', 'date'];
   dataSource = new MatTableDataSource()
 
   ngOnInit(): void {
@@ -149,12 +149,12 @@ export class DashboardComponent implements  OnInit {
   //   this.getRepository("ng-security-vulnerabilities")
   // }
 
-  async getPrediction(endpoint: String) {
-    await (await this.mls.getPrediction(endpoint, this.selected)).subscribe(p => {
+  async getPrediction(endpoint: String, filepath: String) {
+    await (await this.mls.getPrediction(endpoint, this.selected, filepath)).subscribe(p => {
       console.log(p)
-      // this.prediction = this.mls.addPrediction(endpoint, p)
-      // this.mls.makePrediction(this.prediction)
-      // this.getRepository(this.prediction.repository)
+      this.prediction = this.mls.getPredictionData(endpoint, p, filepath)
+      this.mls.makePrediction(this.prediction)
+      this.getRepository(this.prediction.repository)
     })
   }
 }

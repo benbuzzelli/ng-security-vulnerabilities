@@ -4,8 +4,9 @@
     <div class="center">
         <!-- <button mat-stroked-button color="primary" (click)="addPrediction()"> Add Prediction </button> -->
         <div style="width: 100%; min-width: 500px;" class="center">
-            <input type="url" #commit placeholder="Enter github repository link...">
-            <button mat-stroked-button color="primary" (click)="getPrediction(commit.value)"> Get Prediction </button>
+            <input type="url" #repo placeholder="Enter github repository link...">
+            <input type="url" #file placeholder="Enter path to file...">
+            <button mat-stroked-button color="primary" (click)="getPrediction(repo.value, file.value)"> Get Prediction </button>
         </div>
         <br>
         <!-- <p>
@@ -34,32 +35,22 @@
             </ng-container>
         
             <!-- File Column -->
-            <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef> Date </th>
-                <td mat-cell *matCellDef="let element" style="overflow:hidden">{{element.date}} </td>
+            <ng-container matColumnDef="filepath">
+                <th mat-header-cell *matHeaderCellDef> Filepath </th>
+                <td mat-cell *matCellDef="let element" style="overflow:hidden">{{element.filepath}} </td>
             </ng-container>
         
         
             <!-- Commits Column -->
-            <ng-container matColumnDef="commits">
-                <th mat-header-cell *matHeaderCellDef> No. Commits </th>
-                <td mat-cell *matCellDef="let element">{{element.numCommits}} </td>
+            <ng-container matColumnDef="avg-vuln">
+                <th mat-header-cell *matHeaderCellDef> Avg Vulnerability </th>
+                <td mat-cell *matCellDef="let element">{{element.avgVulnerability}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="nonVulnerableCommits">
-                <th mat-header-cell *matHeaderCellDef> No. Non Vulnerable </th>
-                <td mat-cell *matCellDef="let element">{{element.numNonVulnerable}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="vulnerableCommits">
-                <th mat-header-cell *matHeaderCellDef> No. Vulnerable </th>
-                <td mat-cell *matCellDef="let element">{{element.numVulnerable}} </td>
-            </ng-container>
-        
-            <!-- Severity Column -->
-            <ng-container matColumnDef="severity">
-                <th mat-header-cell *matHeaderCellDef> Vulnerable </th>
-                <td mat-cell *matCellDef="let element">{{element.isVulnerable}} </td>
+            <!-- Commits Column -->
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let element">{{element.date}} </td>
             </ng-container>
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
