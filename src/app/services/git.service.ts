@@ -43,7 +43,7 @@ export class GitService {
 
   working: Boolean = false
 
-  constructor(private afs: AngularFirestore, private repositoryService: RepositoryService, private http: HttpClient) { }
+  constructor(private afs: AngularFirestore, private http: HttpClient) { }
 
   private getIndexOfNthOccurence(searchString, pattern, n) {
       let index = -1;
