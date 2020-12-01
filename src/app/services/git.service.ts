@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { RepositoryService } from "./repository.service"
 import { AngularFirestore } from '@angular/fire/firestore';
 import { firestore } from 'firebase';
 import * as uuid from 'uuid';
@@ -44,7 +43,7 @@ export class GitService {
 
   working: Boolean = false
 
-  constructor(private afs: AngularFirestore, private repositoryService: RepositoryService, private http: HttpClient) { }
+  constructor(private afs: AngularFirestore, private http: HttpClient) { }
 
   private getIndexOfNthOccurence(searchString, pattern, n) {
       let index = -1;

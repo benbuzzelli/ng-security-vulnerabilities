@@ -58,6 +58,14 @@ export class MlServiceService {
   }
 
   private async getMessagesFromFiles(endpoint, filepath) {
+
+    var headers_object = new HttpHeaders();
+    headers_object.append("Authorization", "Basic " + btoa("username:password"));
+
+    const httpOptions = {
+      headers: headers_object,
+    };
+
     let url = 'https://api.github.com/repos/' + this.gitService.getRepoPath(endpoint) + '/commits?per_page=100&path=' + filepath
     let messages = []
     await this.http.get<any>(url).toPromise().then( data => {
@@ -73,8 +81,16 @@ export class MlServiceService {
 
     messages += "x23model!t@ype!x56" + modelSelection
 
-    // console.log(messages)
-    let response = await this.http.post("http://0.0.0.0:8080/", messages, {responseType: 'text'})
+    var headers_object = new HttpHeaders();
+    headers_object.append('Response-Type', 'text');
+    headers_object.append("Authorization", "Basic " + btoa("username:password"));
+
+    const httpOptions = {
+      headers: headers_object,
+      responseType: 'text' as 'text'
+    };
+
+    let response = await this.http.post("https://127.0.0.1:5000/", messages, httpOptions)
     console.log(response)
     return response
   }
