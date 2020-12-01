@@ -1,89 +1,84 @@
 <div class = "container">
-    <!-- <input type="url" #url placeholder="https://github.com/"> -->
-    <!-- <button mat-stroked-button color="primary" (click)="runTest()"> Run Test </button> -->
-        <!-- <button mat-stroked-button color="primary" (click)="addPrediction()"> Add Prediction </button> -->
-        <mat-horizontal-stepper linear #stepper>
-            <mat-step [editable]="true">
-                <ng-template matStepLabel>Enter repository</ng-template>
+    <mat-horizontal-stepper linear #stepper>
+        <mat-step [editable]="true">
+            <ng-template matStepLabel>Enter repository</ng-template>
+            <br>
+            <input #repo type="url" #repo placeholder="Enter github repository link...">
+            <div>
                 <br>
-                <input #repo type="url" #repo placeholder="Enter github repository link...">
-                <div>
-                    <br>
-                    <button mat-button matStepperNext>Next</button>
-                </div>
-            </mat-step>
-            <mat-step [editable]="true">
-                <ng-template matStepLabel>Enter filepath</ng-template>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step [editable]="true">
+            <ng-template matStepLabel>Enter filepath</ng-template>
+            <br>
+            <input #file type="url" #file placeholder="Enter path to file...">
+            <div>
                 <br>
-                <input #file type="url" #file placeholder="Enter path to file...">
-                <div>
-                    <br>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Select model</ng-template>
+            <mat-form-field appearance="fill">
+                <mat-label >Select an option</mat-label>
+                <mat-select [(value)]="selected">
+                <mat-option value="1/1">Convolution 1/1</mat-option>
+                <mat-option value="1/50">Convolution 1/50</mat-option>
+                <mat-option value="50/1">Convolution 50/1</mat-option>
+                <mat-option value="1/30">Convolution 1/30</mat-option>
+                <mat-option value="30/1">Convolution 30/1</mat-option>
+                <mat-option value="1/100">Convolution 1/100</mat-option>
+                <mat-option value="100/1">Convolution 100/1</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext (click)="getPrediction(repo.value, file.value)">Make Prediction</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Prediction result</ng-template>
+                <div *ngIf="prediction != undefined" class="center">
+                    <span class="title">{{prediction.repository}}</span><br><br>
                 </div>
-            </mat-step>
-            <mat-step>
-                <ng-template matStepLabel>Select model</ng-template>
-                <mat-form-field appearance="fill">
-                    <mat-label >Select an option</mat-label>
-                    <mat-select [(value)]="selected">
-                    <mat-option value="1/1">Convolution 1/1</mat-option>
-                    <mat-option value="1/50">Convolution 1/50</mat-option>
-                    <mat-option value="50/1">Convolution 50/1</mat-option>
-                    <mat-option value="1/30">Convolution 1/30</mat-option>
-                    <mat-option value="30/1">Convolution 30/1</mat-option>
-                    <mat-option value="1/100">Convolution 1/100</mat-option>
-                    <mat-option value="100/1">Convolution 100/1</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext (click)="getPrediction(repo.value, file.value)">Make Prediction</button>
-                </div>
-            </mat-step>
-            <mat-step>
-                <ng-template matStepLabel>Prediction result</ng-template>
-                <!-- <div *ngFor="let repo of repository$ | async"> -->
-                    <div *ngIf="prediction != undefined" class="center">
-                        <span class="title">{{prediction.repository}}</span><br><br>
-                    </div>
-                    <table mat-table [dataSource]="dataSource" matSort>
-                        <ng-container matColumnDef="position">
-                            <th mat-header-cell *matHeaderCellDef> No. </th>
-                            <td mat-cell *matCellDef="let element; let i = index">{{i}} </td>
-                        </ng-container>
-                    
-                        <ng-container matColumnDef="filepath">
-                            <th mat-header-cell *matHeaderCellDef> Filepath </th>
-                            <td mat-cell *matCellDef="let element" style="overflow:hidden">{{element.filepath}} </td>
-                        </ng-container>
-                    
-                        <ng-container matColumnDef="avg-vuln">
-                            <th mat-header-cell *matHeaderCellDef> Avg Vulnerability </th>
-                            <td mat-cell *matCellDef="let element">{{element.avgVulnerability}} </td>
-                        </ng-container>
-            
-                        <ng-container matColumnDef="model">
-                            <th mat-header-cell *matHeaderCellDef> Model Tested </th>
-                            <td mat-cell *matCellDef="let element">{{element.model}} </td>
-                        </ng-container>
-            
-                        <ng-container matColumnDef="date">
-                            <th mat-header-cell *matHeaderCellDef> Date </th>
-                            <td mat-cell *matCellDef="let element">{{element.date}} </td>
-                        </ng-container>
-                    
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </table>
-                <!-- </div> -->
-                <mat-paginator [pageSizeOptions]="[5,10,30]" showFirstLastButtons></mat-paginator>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button (click)="stepper.reset()">Reset</button>
-                </div>
-            </mat-step>
-        </mat-horizontal-stepper>
+                <table mat-table [dataSource]="dataSource" matSort>
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let element; let i = index">{{i}} </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="filepath">
+                        <th mat-header-cell *matHeaderCellDef> Filepath </th>
+                        <td mat-cell *matCellDef="let element" style="overflow:hidden">{{element.filepath}} </td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="avg-vuln">
+                        <th mat-header-cell *matHeaderCellDef> Avg Vulnerability </th>
+                        <td mat-cell *matCellDef="let element">{{element.avgVulnerability}} </td>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="model">
+                        <th mat-header-cell *matHeaderCellDef> Model Tested </th>
+                        <td mat-cell *matCellDef="let element">{{element.model}} </td>
+                    </ng-container>
+        
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef> Date </th>
+                        <td mat-cell *matCellDef="let element">{{element.date}} </td>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            <mat-paginator [pageSizeOptions]="[5,10,30]" showFirstLastButtons></mat-paginator>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
 </div>
 
 

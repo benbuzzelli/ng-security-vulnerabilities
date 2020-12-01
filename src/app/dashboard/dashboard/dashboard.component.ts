@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Router } from  "@angular/router";
-import { RepositoryService } from "../../services/repository.service"
 import { GitService } from "../../services/git.service"
 import { DownloadService } from "../../services/download.service"
 import { MlServiceService, Prediction, Repository } from "../../services/ml-service.service"
@@ -8,12 +7,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { NgxSpinnerService } from "ngx-spinner";  
-import { url } from 'inspector';
 import { jsPDF } from "jspdf";
-import autoTable from 'jspdf-autotable'; 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { MatTab } from '@angular/material/tabs';
+import autoTable from 'jspdf-autotable';
 
 export interface DashboardTable {
   position: string;
@@ -24,17 +19,6 @@ export interface DashboardTable {
   severity: string;
 } 
 
-
-// const DASHBOARD_DATA: DashboardTable[] = [
-//   {position: '1', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-//   {position: '2', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-//   {position: '3', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-//   {position: '4', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-//   {position: '5', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-//   {position: '6', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-//   {position: '7', date:'ng-security-vulnerabilities', commits: 11, severity: '10%' },
-// ];
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -42,15 +26,16 @@ export interface DashboardTable {
 })
 
 export class DashboardComponent implements  OnInit {
-  selected = 'option1'
-  
-  repository$: Observable<Repository[]>
-  prediction
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('severityIconDiv') severityIconDiv: ElementRef;
 
+  displayedColumns: string[] = ['position','filepath','avg-vuln', 'model', 'date'];
+  dataSource: MatTableDataSource<any>
+
+  selected = 'option1'  
+  prediction
+
   constructor(public router: Router,
-    private repositoryService: RepositoryService,
     private gitService: GitService,
     private spinner: NgxSpinnerService,
     private downloadService: DownloadService,
@@ -59,24 +44,11 @@ export class DashboardComponent implements  OnInit {
 
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  displayedColumns: string[] = ['position','filepath','avg-vuln', 'model', 'date'];
-  dataSource: MatTableDataSource<any>
-
   ngOnInit(): void {
 
   }
   
   ngAfterViewInit(): void {
-  }
-
-  async getRepository(repository) {
-    this.repository$ = await this.mls.getRepository(repository)
-  }
-  
-  addRepository(url: String) {
-    this.repositoryService.addRepository(url)
   }
 
   pushCommitData(url: String) {
@@ -86,7 +58,6 @@ export class DashboardComponent implements  OnInit {
   runTest(){
     this.spinner.show();
     setTimeout(() => {
-        /** spinner ends after 5 seconds */
         this.spinner.hide();
     }, 5000); 
   }
@@ -131,17 +102,11 @@ export class DashboardComponent implements  OnInit {
     this.downloadService.downloadCSV(collectionName)
   }
 
-  // addPrediction(prediction) {
-  //   this.mls.addPrediction(prediction)
-  //   this.getRepository("ng-security-vulnerabilities")
-  // }
-
   async getPrediction(endpoint: String, filepath: String) {
     await (await this.mls.getPrediction(endpoint, this.selected, filepath)).subscribe(p => {
       console.log(p)
       this.prediction = this.mls.getPredictionData(endpoint, p, filepath, this.selected)
       this.mls.makePrediction(this.prediction)
-      // this.getRepository(this.prediction.repository)
 
       let repoRef = this.afs.collection<Repository>("repositories", ref => ref.where('name','==', this.prediction.repository ))
       return repoRef.valueChanges().subscribe(data => {

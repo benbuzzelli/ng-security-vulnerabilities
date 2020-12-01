@@ -94,7 +94,6 @@ export class MlServiceService {
     console.log("making prediction")
     let repoRef = this.afs.collection<Repository>('repositories');
     let document = repoRef.doc(prediction.repository)
-    // document.set(JSON.parse(JSON.stringify(mlData)), {merge: true})
     document.set({
       name: prediction.repository,
       predictions: firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(prediction)))

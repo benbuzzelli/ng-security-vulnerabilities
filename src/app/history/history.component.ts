@@ -26,11 +26,11 @@ export class HistoryComponent implements OnInit {
   predictions$: Observable<Prediction[]>
 
   constructor(private afs: AngularFirestore, public router: Router, private mls: MlServiceService) {
-    // this.repositoryCollection = this.afs.collection<Repository>("repositories")
-    // this.repository$ = this.repositoryCollection.valueChanges()
+  
   }
+
   ngOnInit(): void {
-    
+
   }
 
   ngAfterViewInit(): void {

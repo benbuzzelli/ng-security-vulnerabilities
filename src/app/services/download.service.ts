@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { MLData } from './git.service';
-import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 
 export class MlCsvData {
@@ -29,33 +27,8 @@ export class DownloadService {
 
   constructor(private afs: AngularFirestore) { }
 
-  downlsoadCSV() {
-    let mlDataRef1 = this.afs.collection<MLData>('ml-data').get();
-    let mlDataRef = this.afs.collection<MLData>('ml-data').doc("linux");
-
-    mlDataRef.get().toPromise().then(function(doc) {
-      if (doc.exists) {
-          // console.log("Document data:", doc.data());
-      } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-      }
-    })
-
-    // let mlData = mlDataRef.snapshotChanges().pipe(map(actions => {
-    //   return actions.map(action => {
-    //     console.log("Yo")
-    //     let data = action.payload.doc.data() as MLData;
-    //     console.log("Found data: " + data)
-    //     let id = action.payload.doc.id;
-    //     return { id, ...data };
-    //   });
-    // }));
-  }
-
   downloadFile(data, filename='data') {
     let csvData = this.convertToCSV(data, ['url','message','vulnerable','severity','commitDate','fixDate']);
-    // console.log(csvData)
     let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
     let dwldLink = document.createElement("a");
     let url = URL.createObjectURL(blob);
@@ -82,9 +55,7 @@ export class DownloadService {
       });
     })
 
-    this.downloadFile(formattedJson, "sample-data")
-
-    // this.csvService.download(this.getCollectionData(collectionName), 'sample-data.csv');
+    this.downloadFile(formattedJson, "csv-whale-data")
   }
 
   async getCollectionData(collectionName) {

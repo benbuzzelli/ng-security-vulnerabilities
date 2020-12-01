@@ -7,7 +7,6 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { NavbarComponent } from './navbar/navbar/navbar.component';
 import { AboutComponent } from './about/about/about.component';
 
-import {CsvService} from 'angular2-json2csv'
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -18,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { environment } from '../environments/environment';
 
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { HistoryComponent } from './history/history.component';
 import { MlExamplesComponent } from './ml-examples/ml-examples.component';
 import { LegalNotesComponent } from './legal-notes/legal-notes.component';
