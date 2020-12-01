@@ -66,6 +66,9 @@ export class MlServiceService {
       headers: headers_object,
     };
 
+    var ip = window.location.origin
+    console.log("IP: " + ip)
+
     let url = 'https://api.github.com/repos/' + this.gitService.getRepoPath(endpoint) + '/commits?per_page=100&path=' + filepath
     let messages = []
     await this.http.get<any>(url).toPromise().then( data => {

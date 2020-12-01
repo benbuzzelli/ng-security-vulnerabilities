@@ -34,7 +34,8 @@ export class HistoryComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.afs.collection<Repository>("predictions").valueChanges().subscribe(data => {
+    this.afs.collection<Prediction>("predictions").valueChanges().subscribe(data => {
+      data = data.sort((a,b) => b.date.localeCompare(a.date));
       this.dataSource = new MatTableDataSource(data)
       this.dataSource.paginator = this.paginator;
     })
