@@ -99,28 +99,23 @@ export class MlServiceService {
       name: prediction.repository,
       predictions: firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(prediction)))
     }, { merge: true });
+
+    this.addPredictionsToDatabase(prediction)
+  }
+
+  addPredictionsToDatabase(prediction) {
+    let timestamp = firestore.FieldValue.serverTimestamp
+    let repoRef = this.afs.collection('predictions');
+    repoRef.add({ ...prediction, createdAt: timestamp() })
   }
 
   async getRepository(repository) {
-    let repoRef;
-    if (repository == "")
-      repoRef = this.afs.collection<Repository>("repositories")
-    else
-      repoRef = this.afs.collection<Repository>("repositories", ref => ref.where('name','==', repository ))
-    
-      const repositories = []
-    await repoRef.get()
-        .then(snapshot => {
-            snapshot.docs.forEach(repository => {
-                  //add data to appObject with id and push them into repositorys
-                  //let currentID = repository.id
-                  //let appObj = { ...repository.data(), ['id']: currentID }
-                repositories.push(repository.data() as Repository)
-                  //add data to repositoriess without the id from DB
-                  //repositories.push(repository.data())
-        })
-    })
-    return repositories
-    // return this.afs.collection<Repository>("repositories", ref => ref.where('name','==', repository )).snapshotChanges();
+    let repoRef = this.afs.collection<Repository>("repositories", ref => ref.where('name','==', repository ))
+    return repoRef.snapshotChanges().pipe(map(actions => {
+      return actions.map(action => {
+        const data = action.payload.doc.data() as Repository;
+        return data;
+      });
+    }));
   }
 }

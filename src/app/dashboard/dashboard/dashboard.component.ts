@@ -13,7 +13,7 @@ import { jsPDF } from "jspdf";
 import autoTable from 'jspdf-autotable'; 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
+import { MatTab } from '@angular/material/tabs';
 
 export interface DashboardTable {
   position: string;
@@ -43,33 +43,32 @@ export interface DashboardTable {
 
 export class DashboardComponent implements  OnInit {
   selected = 'option1'
-  prediction
-
+  
   repository$: Observable<Repository[]>
+  prediction
 
   @ViewChild('severityIconDiv') severityIconDiv: ElementRef;
 
-  constructor(public router: Router, 
+  constructor(public router: Router,
     private repositoryService: RepositoryService,
     private gitService: GitService,
     private spinner: NgxSpinnerService,
     private downloadService: DownloadService,
     private mls: MlServiceService,
-    private afs: AngularFirestore,) {
+    private afs: AngularFirestore) {
 
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   displayedColumns: string[] = ['position','filepath','avg-vuln', 'model', 'date'];
-  dataSource = new MatTableDataSource()
+  dataSource: MatTableDataSource<any>
 
   ngOnInit(): void {
-    
+
   }
   
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
   }
 
   async getRepository(repository) {
@@ -142,7 +141,13 @@ export class DashboardComponent implements  OnInit {
       console.log(p)
       this.prediction = this.mls.getPredictionData(endpoint, p, filepath, this.selected)
       this.mls.makePrediction(this.prediction)
-      this.getRepository(this.prediction.repository)
+      // this.getRepository(this.prediction.repository)
+
+      let repoRef = this.afs.collection<Repository>("repositories", ref => ref.where('name','==', this.prediction.repository ))
+      return repoRef.valueChanges().subscribe(data => {
+        this.dataSource = new MatTableDataSource(data[0].predictions)
+        this.dataSource.paginator = this.paginator;
+      })
     })
   }
 }

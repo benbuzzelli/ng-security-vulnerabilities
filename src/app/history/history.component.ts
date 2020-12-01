@@ -1,30 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from  "@angular/router";
 import { Observable } from 'rxjs';
 import { MlServiceService, Prediction, Repository } from "../services/ml-service.service"
-
-//import { Prediction } from './ml-service.service.ts';
-
-export interface HistoryTable {
-  date: string;
-  github: string;
-  description: string;
-  vulnerable: string;
-  severity: string;
-}
-
-const HISTORY_DATA: HistoryTable[] = [
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
-  { date: '09/02/2020', github: 'https://github.com/benbuzzelli/ng-security-vulnerabilities', description: 'Test', vulnerable: 'Yes', severity: '100%' },
-];
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-history',
@@ -32,19 +14,30 @@ const HISTORY_DATA: HistoryTable[] = [
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  repositoryCollection: AngularFirestoreCollection<Repository>
 
   repository$: Observable<Repository[]>
-  displayedColumns: string[] = ['date', 'github', 'description', 'vulnerable', 'severity'];
-  dataSource = HISTORY_DATA;
+  displayedColumns: string[] = ['position','filepath', 'repository', 'avg-vuln', 'model', 'date'];
+  dataSource: MatTableDataSource<any>
 
-  constructor(public router: Router, private mls: MlServiceService) { }
+  predictions: Prediction[]
+  predictions$: Observable<Prediction[]>
+
+  constructor(private afs: AngularFirestore, public router: Router, private mls: MlServiceService) {
+    // this.repositoryCollection = this.afs.collection<Repository>("repositories")
+    // this.repository$ = this.repositoryCollection.valueChanges()
+  }
   ngOnInit(): void {
-    this.getRepository()
-  }
-  
-  async getRepository() {
-    this.repository$ = await this.mls.getRepository("")
+    
   }
 
+  ngAfterViewInit(): void {
+    this.afs.collection<Repository>("predictions").valueChanges().subscribe(data => {
+      this.dataSource = new MatTableDataSource(data)
+      this.dataSource.paginator = this.paginator;
+    })
+  }
 }
 
