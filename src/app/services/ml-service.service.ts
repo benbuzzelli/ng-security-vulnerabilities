@@ -101,14 +101,26 @@ export class MlServiceService {
     }, { merge: true });
   }
 
-  getRepository(repository) {
-    let repoRef = this.afs.collection<Repository>("repositories", ref => ref.where('name','==', repository ))
-    return repoRef.snapshotChanges().pipe(map(actions => {
-      return actions.map(action => {
-        const data = action.payload.doc.data() as Repository;
-        return data;
-      });
-    }));
+  async getRepository(repository) {
+    let repoRef;
+    if (repository == "")
+      repoRef = this.afs.collection<Repository>("repositories")
+    else
+      repoRef = this.afs.collection<Repository>("repositories", ref => ref.where('name','==', repository ))
+    
+      const repositories = []
+    await repoRef.get()
+        .then(snapshot => {
+            snapshot.docs.forEach(repository => {
+                  //add data to appObject with id and push them into repositorys
+                  //let currentID = repository.id
+                  //let appObj = { ...repository.data(), ['id']: currentID }
+                repositories.push(repository.data() as Repository)
+                  //add data to repositoriess without the id from DB
+                  //repositories.push(repository.data())
+        })
+    })
+    return repositories
     // return this.afs.collection<Repository>("repositories", ref => ref.where('name','==', repository )).snapshotChanges();
   }
 }

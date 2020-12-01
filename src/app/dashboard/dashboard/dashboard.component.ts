@@ -73,19 +73,7 @@ export class DashboardComponent implements  OnInit {
   }
 
   async getRepository(repository) {
-    // this.mls.getRepository("ng-security-vulnerabilities").subscribe(res =>(this.repository = res))
     this.repository$ = await this.mls.getRepository(repository)
-    // console.log(data)
-
-    // let repoRef = this.afs.collection<Repository>("repositories", ref => ref.where('name','==', repository ))
-    // return repoRef.snapshotChanges().pipe(map(actions => {
-    //   return actions.map(action => {
-    //     let repo = action.payload.doc.data() as Repository;
-    //     let predictions = repo.predictions
-    //     this.dataSource.data = predictions
-    //     return repo;
-    //   });
-    // }));
   }
   
   addRepository(url: String) {

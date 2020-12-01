@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from  "@angular/router";
+import { Observable } from 'rxjs';
+import { MlServiceService, Prediction, Repository } from "../services/ml-service.service"
+
+//import { Prediction } from './ml-service.service.ts';
 
 export interface HistoryTable {
   date: string;
@@ -29,10 +33,18 @@ const HISTORY_DATA: HistoryTable[] = [
 })
 export class HistoryComponent implements OnInit {
 
-  constructor(public router: Router) { }
+  repository$: Observable<Repository[]>
   displayedColumns: string[] = ['date', 'github', 'description', 'vulnerable', 'severity'];
   dataSource = HISTORY_DATA;
+
+  constructor(public router: Router, private mls: MlServiceService) { }
   ngOnInit(): void {
+    this.getRepository()
+  }
+  
+  async getRepository() {
+    this.repository$ = await this.mls.getRepository("")
   }
 
 }
+
