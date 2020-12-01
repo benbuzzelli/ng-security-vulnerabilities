@@ -61,7 +61,7 @@ export class DashboardComponent implements  OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['position','filepath','avg-vuln', 'date'];
+  displayedColumns: string[] = ['position','filepath','avg-vuln', 'model', 'date'];
   dataSource = new MatTableDataSource()
 
   ngOnInit(): void {
@@ -152,7 +152,7 @@ export class DashboardComponent implements  OnInit {
   async getPrediction(endpoint: String, filepath: String) {
     await (await this.mls.getPrediction(endpoint, this.selected, filepath)).subscribe(p => {
       console.log(p)
-      this.prediction = this.mls.getPredictionData(endpoint, p, filepath)
+      this.prediction = this.mls.getPredictionData(endpoint, p, filepath, this.selected)
       this.mls.makePrediction(this.prediction)
       this.getRepository(this.prediction.repository)
     })

@@ -25,32 +25,16 @@ export class Prediction {
   filepath: string
   date: string
   avgVulnerability: Number
+  model: String
 
-  constructor(repository, filepath, date, avg) {
+  constructor(repository, filepath, date, avg, model) {
     this.repository = repository
     this.filepath = filepath
     this.date = date
     this.avgVulnerability = avg
+    this.model = model
   }
 }
-
-// export class Prediction {
-//   repository: string
-//   date: string
-//   numCommits: string
-//   isVulnerable: boolean
-//   numNonVulnerable: number
-//   numVulnerable: number
-
-//   constructor(repository, date, numCommits, isVulnerable, numNonVulnerable, numVulnerable) {
-//     this.repository = repository
-//     this.date = date
-//     this.numCommits = numCommits
-//     this.isVulnerable = isVulnerable
-//     this.numNonVulnerable = numNonVulnerable
-//     this.numVulnerable = numVulnerable
-//   }
-// }
 
 @Injectable({
   providedIn: 'root'
@@ -95,36 +79,12 @@ export class MlServiceService {
     return response
   }
 
-  // getPredictionData(endpoint, predictionString, filepath) {
-  //   console.log("Prediction string: " + predictionString)
-  //   let values = predictionString.split(",")
-  //   let repo = this.gitService.getRepoPath(endpoint).split("/")[1]
-  //   console.log("repo: " + repo)
-  //   let nV = parseInt(values[0])
-  //   let nN = parseInt(values[1])
-  //   let nCommits = nV + nN
-  //   let isV = nV > nN
-  //   let date = formatDate(new Date(), 'dd/MM/yyyy-hh:mm:ss', 'en');
-  //   let prediction = new Prediction(repo, date, nCommits, isV, nN, nV)
-
-  //   console.log(prediction)
-  //   // localStorage.setItem('repository', prediction.repository)
-  //   // let repoRef = this.afs.collection<Repository>('repositories');
-  //   // let document = repoRef.doc(prediction.repository)
-  //   // // document.set(JSON.parse(JSON.stringify(mlData)), {merge: true})
-  //   // document.set({
-  //   //   name: prediction.repository,
-  //   //   predictions: firestore.FieldValue.arrayUnion(JSON.parse(JSON.stringify(prediction)))
-  //   // }, { merge: true });
-  //   return prediction
-  // }
-
-  getPredictionData(endpoint, predictionString, filepath) {
+  getPredictionData(endpoint, predictionString, filepath, model) {
     console.log("Prediction string: " + predictionString)
     let values = predictionString.split(",")
     let repo = this.gitService.getRepoPath(endpoint).split("/")[1]
     let date = formatDate(new Date(), 'dd/MM/yyyy-hh:mm:ss', 'en');
-    let prediction = new Prediction(repo, filepath, date, Number(values[0]))
+    let prediction = new Prediction(repo, filepath, date, Number(values[0]), model)
 
     console.log(prediction)
     return prediction
